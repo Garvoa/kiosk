@@ -58,11 +58,25 @@ import '../css/layout.less'
 export default {
   components: {},
   mixins: [LayoutMixin],
-  // data() {
-  //   return {}
-  // },
+  data() {
+    return {}
+  },
   mounted() {},
-  methods: {}
+  methods: {
+    openAndClose(index) {
+      this.isClose = index
+      setTimeout(() => {
+        if (
+          $('.wrap')[index].scrollTop >
+          $('.configlist')[index].offsetHeight - $('.wrap')[index].clientHeight
+        ) {
+          this.isShowIcon = true
+        } else {
+          this.isShowIcon = false
+        }
+      }, 300)
+    }
+  }
 }
 </script>
 <style lang="less">

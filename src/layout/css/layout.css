@@ -1,0 +1,90 @@
+.SelectAttributes {
+  height: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.SelectAttributes .item {
+  width: 98%;
+  border: 1px solid #20b2aa;
+  border-radius: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+  position: relative;
+}
+.SelectAttributes .item .centent {
+  padding: 10px 10px;
+  background-color: #20b2aa;
+}
+.SelectAttributes .item .centent .severalItems {
+  float: right;
+}
+.SelectAttributes .item .config {
+  padding: 10px 10px;
+}
+.SelectAttributes .item .wrap {
+  height: 550px;
+  transition: 0.3s;
+  padding: 10px;
+  margin-bottom: 20px;
+  opacity: 1;
+  position: relative;
+  width: 100%;
+  overflow: auto;
+}
+.SelectAttributes .item .wrap .configlist {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.SelectAttributes .item .wrap .configlist .slide {
+  padding: 0px 10px;
+  width: 25%;
+}
+.SelectAttributes .item .wrap .configlist .slide .price {
+  padding: 10px;
+}
+.SelectAttributes .item .wrap .configlist .slide .price p {
+  margin: 0;
+}
+.SelectAttributes .item .wrap .configlist .slide .price span {
+  padding: 10px;
+}
+.SelectAttributes .item .wrap .configlist .slide img {
+  width: 100%;
+}
+.SelectAttributes .item .icon {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 50px;
+  animation: translateIcon 1s infinite;
+  font-weight: 700;
+  transform: rotate(90deg);
+}
+.SelectAttributes .item .isShow {
+  display: none;
+}
+.SelectAttributes .item .close {
+  height: 0px;
+  opacity: 0;
+  padding: 0;
+  margin-bottom: 0px;
+}
+.SelectAttributes .active {
+  border: 1px solid #ffd700;
+}
+.SelectAttributes .active .centent {
+  background-color: #ffd700;
+}
+@keyframes translateIcon {
+  0% {
+    bottom: 20px;
+  }
+  50% {
+    bottom: 0px;
+  }
+  100% {
+    bottom: 20px;
+  }
+}
