@@ -1,7 +1,7 @@
 <template>
   <div class="styleLayoutwrap">
-    <AStyleLayout />
-    <!-- <BStyleLaout /> -->
+    <!-- <AStyleLayout /> -->
+    <BStyleLaout />
   </div>
 </template>
 <script>

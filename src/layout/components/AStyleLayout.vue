@@ -10,8 +10,8 @@
         选择加配
       </div>
       <div class="wrap" :class="{close:isClose!==0}">
-        <ul class="configlist">
-          <li class="slide" v-for="(item,index) in 25" :key="index">
+        <ul class="row configlist">
+          <li class="slide col-md-4" v-for="(item,index) in 25" :key="index">
             <img
               src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153677118,3123000136&fm=26&gp=0.jpg"
               alt
@@ -35,8 +35,8 @@
         选择加配
       </div>
       <div class="wrap" :class="{close:isClose!==1}">
-        <ul class="configlist">
-          <li class="slide" v-for="(item,index) in 25" :key="index">
+        <ul class="row configlist">
+          <li class="slide col-md-4" v-for="(item,index) in 25" :key="index">
             <img
               src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153677118,3123000136&fm=26&gp=0.jpg"
               alt

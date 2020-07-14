@@ -1,11 +1,8 @@
 .SelectAttributes {
   height: 50%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 .SelectAttributes .item {
-  width: 98%;
+  width: 100%;
   border: 1px solid #20b2aa;
   border-radius: 10px;
   margin-top: 20px;
@@ -34,12 +31,6 @@
 }
 .SelectAttributes .item .wrap .configlist {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-.SelectAttributes .item .wrap .configlist .slide {
-  padding: 0px 10px;
-  width: 25%;
 }
 .SelectAttributes .item .wrap .configlist .slide .price {
   padding: 10px;

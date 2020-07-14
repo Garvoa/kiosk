@@ -90,7 +90,7 @@
               选择加配
             </div>
             <div class="wrap">
-              <ul class="row configlist">
+              <ul class="row">
                 <li class="slide col-md-4" v-for="(item,index) in 25" :key="index">
                   <img
                     src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153677118,3123000136&fm=26&gp=0.jpg"
