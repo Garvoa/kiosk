@@ -71,7 +71,7 @@ export default {
 }
 </script>
  
-<style lang="less">
+<style lang="less" >
 .swiper-container {
   height: 100%;
 

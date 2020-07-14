@@ -73,13 +73,19 @@ export default {
 </script>
 <style lang="less"  scoped>
 .wrap {
-  padding: 0px 100px !important;
   font-size: 50px !important;
   font-weight: 700 !important;
   text-align: center;
   overflow-x: hidden;
+  header {
+    height: 30%;
+  }
+  section {
+    padding: 0px 50px !important;
+    height: 70%;
+  }
   p {
-    padding: 50px;
+    // padding: 50px;
     text-align: center;
   }
   .modal-box {
@@ -89,12 +95,13 @@ export default {
   .choice {
     width: 100%;
     display: flex;
+    height: 60%;
     justify-content: space-evenly;
     button {
       font-size: 50px;
       font-weight: 700;
       width: 35%;
-      height: 400px;
+      height: 100%;
       border-radius: 10px;
       text-align: center;
     }
@@ -104,7 +111,7 @@ export default {
     height: 70px;
     font-size: 30px;
     font-weight: 700;
-    margin: 200px;
+    margin: 30px;
   }
   .modal-dialog {
     margin: 200px 0px;

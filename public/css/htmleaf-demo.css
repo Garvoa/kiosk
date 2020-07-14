@@ -419,7 +419,7 @@ body {
 .container {
   width: 100% !important;
 }
-/* @media only screen and (max-width: 576px) {
+@media only screen and (max-width: 576px) {
   .modal-dialog {
     width: 96% !important;
   }
@@ -479,4 +479,4 @@ body {
   .related a h3 {
     font-size: 0.6em;
   }
-} */
+}

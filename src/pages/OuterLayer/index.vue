@@ -42,23 +42,25 @@ export default {
 <style lang="less" scoped>
 #app {
   margin: 0 auto;
-  min-width: 1020px;
-  max-width: 1024px;
+  min-width: 1024px;
 }
 header {
+  height: 20%;
+  box-sizing: border-box;
   padding: 40px;
   h1 {
     text-align: center;
-    padding: 20px;
   }
 }
 section {
-  height: 1400px;
+  height: 56%;
   position: relative;
 }
 footer {
+  height: 24%;
   text-align: center;
-  padding: 140px;
+  box-sizing: border-box;
+  padding: 20px;
   position: relative;
   .startcat {
     border: none;

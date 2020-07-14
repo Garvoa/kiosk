@@ -1,0 +1,98 @@
+.SelectAttributes {
+  height: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .item {
+    width: 98%;
+    border: 1px solid #20b2aa;
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+
+    .centent {
+      padding: 10px 10px;
+      background-color: #20b2aa;
+
+      .severalItems {
+        float: right;
+      }
+    }
+    .config {
+      padding: 10px 10px;
+    }
+    .wrap {
+      height: 550px;
+      transition: 0.3s;
+      padding: 10px;
+      margin-bottom: 20px;
+      opacity: 1;
+      position: relative;
+      width: 100%;
+      overflow: auto;
+
+      .configlist {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .slide {
+          padding: 0px 10px;
+          width: 25%;
+          .price {
+            padding: 10px;
+            p {
+              margin: 0;
+            }
+            span {
+              padding: 10px;
+            }
+          }
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .icon {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      font-size: 50px;
+      animation: translateIcon 1s infinite;
+      font-weight: 700;
+      transform: rotate(90deg);
+    }
+    .isShow {
+      display: none;
+    }
+
+    .close {
+      height: 0px;
+      opacity: 0;
+      padding: 0;
+
+      margin-bottom: 0px;
+    }
+  }
+  .active {
+    border: 1px solid #ffd700;
+    .centent {
+      background-color: #ffd700;
+    }
+  }
+}
+@keyframes translateIcon {
+  0% {
+    bottom: 20px;
+  }
+
+  50% {
+    bottom: 0px;
+  }
+
+  100% {
+    bottom: 20px;
+  }
+}

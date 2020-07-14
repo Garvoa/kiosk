@@ -34,7 +34,6 @@ export default {
 <style lang="less">
 .Router {
   min-width: 1024px;
-  max-width: 1024px;
   transition: all 0.2888s ease;
   position: absolute;
   top: 0;

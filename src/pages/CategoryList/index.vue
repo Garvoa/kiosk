@@ -1,5 +1,6 @@
 <template>
   <div class="categorywrap">
+    <!-- 头部 -->
     <div class="categoryheader">
       <div class="time">{{hour}}{{time}}</div>
       <el-button
@@ -10,9 +11,11 @@
         data-target="#myModal"
       >重新點單</el-button>
     </div>
+    <!-- 轮播图 -->
     <div class="rotation">
       <Rotation />
     </div>
+    <!-- 菜品列表 -->
     <section>
       <div class="row rowLeft">
         <div class="col-md-3 left" id="wrapper">
@@ -33,45 +36,48 @@
           <p class="category1Name">{{name}}</p>
 
           <div id="wrapperRight">
-            <ul ref="rowRight" class="rowRight">
-              <li ref="item0">
-                <div
-                  class="col-md-4 rightlist"
-                  v-for="(item,index) in 20"
-                  :key="index"
-                  @click="toAttriButeList"
-                >
-                  <div class="item">
-                    <img
-                      src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594382405955&di=7a062ff045b2ebb222e302a043b31bbe&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20190519%2Fe5dc5d755d0643819c09dc40e67b5a80.jpeg"
-                      alt
-                    />
-                    <p>
-                      <span>猪扒饭</span>
-                      <span style="display:block">￥180</span>
-                    </p>
+            <div class="wrapperOuter">
+              <ul ref="rowRight" class="rowRight">
+                <li ref="item0">
+                  <div
+                    class="col-md-4 rightlist"
+                    v-for="(item,index) in 20"
+                    :key="index"
+                    @click="toAttriButeList"
+                  >
+                    <div class="item">
+                      <img
+                        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594382405955&di=7a062ff045b2ebb222e302a043b31bbe&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20190519%2Fe5dc5d755d0643819c09dc40e67b5a80.jpeg"
+                        alt
+                      />
+                      <p>
+                        <span>猪扒饭</span>
+                        <span style="display:block">￥180</span>
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </li>
-              <li ref="item1">
-                <div class="col-md-4 rightlist" v-for="(item,index) in 20" :key="index">
-                  <div class="item">
-                    <img
-                      src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1623532870,314241626&fm=26&gp=0.jpg"
-                      alt
-                    />
-                    <p>
-                      <span>牛扒饭</span>
-                      <span style="display:block">￥200</span>
-                    </p>
+                </li>
+                <li ref="item1">
+                  <div class="col-md-4 rightlist" v-for="(item,index) in 20" :key="index">
+                    <div class="item">
+                      <img
+                        src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1623532870,314241626&fm=26&gp=0.jpg"
+                        alt
+                      />
+                      <p>
+                        <span>牛扒饭</span>
+                        <span style="display:block">￥200</span>
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </li>
-            </ul>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </section>
+    <!-- 购物车订单 -->
     <div class="myorder">
       <div class="myorderhead">我的订单（堂食）</div>
 
@@ -107,6 +113,7 @@
         <el-button type="danger" round>离开</el-button>
       </div>
     </div>
+    <!-- 模态框 -->
     <div class="demo" style="min-height: 550px;">
       <div class="container">
         <div class="row">
@@ -154,12 +161,12 @@ export default {
   name: 'categoryList',
   data() {
     return {
-      time: this.$moment().format('LTS'),
-      hour: '',
+      time: this.$moment().format('LTS'), //时间
+      hour: '', //时辰
       active: 0,
       scrollFlag: false,
       iscrollRight: null,
-      name: '老猪肘饭',
+      name: '老猪肘饭', //大类标题
       arr: [
         {
           src:
@@ -197,37 +204,45 @@ export default {
   mounted() {
     this.date()
 
-    this.iscroll = new IScroll('#wrapper', {
-      mouseWheel: true,
-      scrollbars: 'custom',
-      scrollY: true,
-      interactiveScrollbars: true,
-      startY: 0
-    })
-    this.iscrollRight = new IScroll('#wrapperRight', {
-      mouseWheel: true,
-      scrollbars: 'custom',
-      scrollY: true,
-      interactiveScrollbars: true,
-      startY: 0,
-      probeType: 3,
-      mouseWheel: true,
-      index: 0
-    })
-    this.iscrollRight.on('scroll', () => {
-      if (this.iscrollRight.y > -this.$refs.item1.offsetTop * 0.5) {
-        this.active = 0
-      } else if (this.iscrollRight.y <= -this.$refs.item1.offsetTop) {
-        this.name = 1
-        this.active = 1
-      }
-    })
-    this.iscrollRight.on('scrollEnd', () => {
-      if (!this.scrollFlag) return
-      this.iscrollRight.scrollTo(0, this.iscrollRight.$offsetTop, 500)
-    })
-    this.iscrollRight.on('beforeScrollStart', () => {
-      this.scrollFlag = false
+    //滚动条
+    this.$nextTick(() => {
+      this.iscroll = new IScroll('#wrapper', {
+        mouseWheel: true,
+        scrollbars: 'custom',
+        scrollY: true,
+        interactiveScrollbars: true,
+        startY: 0
+      })
+      this.iscrollRight = new IScroll('#wrapperRight', {
+        mouseWheel: true,
+        scrollbars: 'custom',
+        scrollY: true,
+
+        startY: 0,
+        probeType: 3,
+        mouseWheel: true
+      })
+      this.iscrollRight.on('scroll', () => {
+        if (!this.$refs.item1) return
+
+        if (this.scrollFlag) return
+        if (this.iscrollRight.y > -this.$refs.item1.offsetTop * 0.5) {
+          this.active = 0
+        } else if (this.iscrollRight.y <= -this.$refs.item1.offsetTop) {
+          this.name = 1
+          this.active = 1
+        }
+      })
+      this.iscrollRight.on('scrollEnd', () => {
+        if (!this.scrollFlag) return
+        this.iscrollRight.scrollTo(0, this.iscrollRight.$offsetTop, 500)
+      })
+      this.iscrollRight.on('beforeScrollStart', () => {
+        this.scrollFlag = false
+      })
+      this.iscrollRight.on('scrollCancel', () => {
+        console.log(1)
+      })
     })
   },
   activated() {
@@ -256,7 +271,9 @@ export default {
         }
       }, 1000)
     },
+    //切换菜品列表
     isActive(index, name) {
+      if (!this.iscrollRight) return
       this.scrollFlag = true
       const offsetTop = -this.$refs[`item${index}`].offsetTop
       this.iscrollRight.$offsetTop = offsetTop
@@ -265,6 +282,7 @@ export default {
       this.active = index
       this.name = name
     },
+    //路由跳转
     toAttriButeList() {
       this.$router.push({ path: '/attributelist' })
     }
@@ -279,7 +297,6 @@ export default {
 }
 .categorywrap {
   width: 100%;
-  // max-width: 1025px;
   min-width: 1024px;
   margin: 0 auto;
   overflow: hidden;
@@ -288,7 +305,7 @@ export default {
   // padding: 2%;
   position: relative;
   background-color: #e6a23c;
-  height: 5%;
+  // height: 5%;
   box-sizing: content-box;
   display: flex;
   align-items: center;
@@ -305,6 +322,7 @@ export default {
 section {
   height: 55%;
   text-align: right;
+  overflow: hidden;
   .className {
     width: 70%;
     height: 80px;
@@ -322,6 +340,7 @@ section {
       overflow: hidden;
       height: 100%;
       position: relative;
+      width: 25%;
       .list-group {
         // height: 2000px;
         .list-group-item {
@@ -331,14 +350,17 @@ section {
             width: 100%;
             height: 150px;
             padding: 10px;
+            object-fit: cover;
           }
         }
       }
     }
     .right {
+      min-width: 75%;
       height: 100%;
       #wrapperRight {
-        height: 95%;
+        width: 100%;
+        height: 1034px;
         overflow: hidden;
         position: relative;
       }
@@ -346,6 +368,7 @@ section {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+        min-width: 100%;
         padding: 0;
       }
 
@@ -372,8 +395,6 @@ section {
     .category1Name {
       width: 90%;
       background-color: #acabaa;
-      padding: 2%;
-      height: 3%;
       box-sizing: content-box;
       border-radius: 10px;
       display: inline-block;
@@ -408,7 +429,7 @@ section {
 }
 .myorder {
   width: 100%;
-  height: 20%;
+
   box-sizing: border-box;
   padding-top: 4%;
 
@@ -446,14 +467,22 @@ section {
     }
   }
 }
+
 .modal-dialog {
-  top: 30%;
-}
-.modal-dialog {
-  top: 30%;
+  margin: 200px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }
 .modal-dialog .modal-content {
-  width: 100%;
+  width: 550px;
 }
 
 .modal-dialog .modal-content .modal-body .description {
@@ -464,5 +493,62 @@ section {
   width: 200px;
   height: 70px;
   font-size: 30px;
+}
+@media screen and (max-height: 1400px) {
+  .rotation {
+    display: none;
+  }
+
+  .categoryheader {
+    height: 10%;
+  }
+
+  .myorder {
+    height: 35%;
+  }
+
+  .category1Name {
+    height: 10%;
+
+    transform: scaleX(0.8);
+  }
+
+  .myorderhead {
+    height: 30% !important;
+  }
+
+  .centent {
+    height: 40% !important;
+  }
+
+  .rowRight {
+    transform: scale(0.8);
+    top: -360px;
+    position: relative;
+  }
+
+  .list-group-item {
+    transform: scale(0.8);
+    /* top: -360px; */
+    position: relative;
+  }
+
+  .leaveAndOk {
+    height: 25% !important;
+  }
+}
+
+@media screen and (min-height: 1400px) and (max-height: 1980px) {
+  .categoryheader {
+    height: 5%;
+  }
+
+  .category1Name {
+    height: 5%;
+  }
+
+  .myorder {
+    height: 20%;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <video id="video_1" class="video-js vjs-default-skin" width="1024" ref="videojs" height="1400">
+  <div class="video_1">
+    <video id="video_1" class="video-js vjs-default-skin" ref="videojs">
       <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4" />
     </video>
     <div class="mask"></div>
@@ -25,8 +25,7 @@ export default {
         muted: true,
         controls: false,
         loop: true,
-        videoWidth: 1024,
-        videoHeight: 1400,
+
         autoplay: true
         // 更多配置.....
       })
@@ -61,17 +60,29 @@ export default {
 }
 </script>
 <style lang="less">
-.video-js .vjs-control-bar {
-  width: 0px !important;
-  height: 0px !important;
-  opacity: 0 !important;
-}
-
-.video-js::after {
-  content: '';
+// .video-js .vjs-control-bar {
+//   width: 100% !important;
+//   height: 100% !important;
+//   opacity: 0 !important;
+// }
+.video_1 {
   width: 100%;
   height: 100%;
-  position: absolute;
-  top: 0;
 }
+#video_1 {
+  width: 100% !important;
+  height: 100% !important;
+}
+// #video_1_html5_api {
+//   width: 100% !important;
+//   height: 100% !important;
+//   opacity: 0 !important;
+// }
+// .video-js .video-js::after {
+//   content: '';
+//   width: 100%;
+//   height: 100%;
+//   position: absolute;
+//   top: 0;
+// }
 </style>

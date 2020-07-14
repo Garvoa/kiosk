@@ -114,6 +114,18 @@ module.exports = {
   // vueLoader: {},
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: false,
+  // css: {
+  //   loaderOptions: {
+  //     postcss: {
+
+  //       plugins: [
+  //         require('postcss-px2rem')({
+  //           remUnit: 100, // 1rem等于多少px
+  //         })
+  //       ]
+  //     }
+  //   }
+  // },
   // css相关配置
   // css: {
   //   // 是否使用css分离插件 ExtractTextPlugin
