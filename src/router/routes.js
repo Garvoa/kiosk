@@ -18,6 +18,10 @@ export default [
     path: "/attributelist",
     component: () => import('../pages/AttrButeList')
   },
+  {
+    path: "/orderdetails",
+    component: () => import('../pages/Orderdetails')
+  },
 
   {
     path: "/",

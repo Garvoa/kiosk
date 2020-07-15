@@ -1,5 +1,5 @@
 <template>
-  <div class="bAttributes">
+  <div class="bAttributes" ref="bAttributes">
     <div class="outer" ref="outer">
       <div class="movetemplate" ref="movetemplate">
         <div class="SelectAttributes">
@@ -14,7 +14,12 @@
             </div>
             <div class="wrap">
               <ul class="row configlist">
-                <li class="slide col-md-4" v-for="(item,index) in 25" :key="index">
+                <li
+                  class="slide col-md-4"
+                  v-for="(item,index) in 25"
+                  :key="index"
+                  @click="openAttributeModule"
+                >
                   <img
                     src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153677118,3123000136&fm=26&gp=0.jpg"
                     alt
@@ -137,14 +142,16 @@
       <el-button type="danger" @click="nextPage(0)">{{isActive===0?'退出':'上一個'}}</el-button>
       <el-button type="success" @click="nextPage(1)">下一個</el-button>
     </div>
+    <AttributeModule ref="AttributeModule" />
   </div>
 </template>
 <script>
 import LayoutMixin from '../mixin'
-
+import AttributeModule from './AttributeModule/AttributeModule'
 export default {
-  components: {},
+  components: { AttributeModule },
   mixins: [LayoutMixin],
+  props: { tranlateXAttrModule: Function },
   data() {
     return {
       isActive: 0
@@ -153,9 +160,15 @@ export default {
   mounted() {},
   methods: {
     nextPage(index) {
+      // this.$router.replace({ path: `/attributelist/${index}` })
+      // this.tranlateXAttrModule(index)
       this.isActive = index
-      let translateX = -this.$refs.movetemplate.offsetHeight * index
-      this.$refs.movetemplate.style.transform = `translateY(${translateX}px)`
+      // let translateX = -this.$refs.bAttributes.offsetWidth
+      // this.$refs.bAttributes.style.transform = `translateX(${translateX}px)`
+      this.$router.push({ path: '/orderdetails' })
+    },
+    openAttributeModule() {
+      this.$refs.AttributeModule.isShowAttributeInner(1)
     }
   }
 }
