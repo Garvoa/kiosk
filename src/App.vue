@@ -1,12 +1,17 @@
 <template>
-  <transition :name="transitionName" mode="out-in">
-    <keep-alive :include="keepAlive" exclude="categoryList">
-      <router-view class="Router"></router-view>
-    </keep-alive>
-  </transition>
+  <div>
+    <transition :name="transitionName" mode="out-in">
+      <keep-alive :include="keepAlive" exclude="categoryList">
+        <router-view class="Router"></router-view>
+      </keep-alive>
+    </transition>
+    <Loading v-show="isLoading" />
+  </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { getMenumodInfo } from './api'
 export default {
   name: 'App',
   data() {
@@ -27,6 +32,19 @@ export default {
       }
       this.$router.isBack = false
     }
+  },
+  computed: {
+    ...mapState({ isLoading: state => state.isLoading })
+  },
+  mounted() {
+    let params = {
+      itemid: 1001,
+      isselfmodifier: 0,
+      familyid: 1
+    }
+
+    console.log(JSON.stringify(params))
+    console.log(getMenumodInfo(params))
   }
 }
 </script>
@@ -40,6 +58,7 @@ export default {
   bottom: 0;
   width: 100%;
   margin: 0 auto;
+  overflow: hidden;
 }
 .slide-left-enter,
 .slide-right-leave-active {

@@ -30,7 +30,7 @@
     </div>
 
     <div class="leaveAndOk">
-      <el-button type="warning" round>确定订单</el-button>
+      <el-button type="warning" @click="payAndOrderdetails" round>确定订单</el-button>
       <el-button type="danger" round>离开</el-button>
     </div>
   </div>
@@ -39,7 +39,11 @@
 export default {
   components: {},
   mounted() {},
-  methods: {}
+  methods: {
+    payAndOrderdetails() {
+      this.$router.push({ path: '/pay' })
+    }
+  }
 }
 </script>
 <style lang="less" scoped>

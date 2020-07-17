@@ -2,18 +2,24 @@
 <template>
   <div @click="toHome">
     <header>
-      <h1>和平饭店logo</h1>
+      <img
+        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594990138492&di=0f5670d1a42616214ea1f7f30905c5ec&imgtype=0&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D2892372298%2C3590958393%26fm%3D214%26gp%3D0.jpg"
+        alt
+      />
     </header>
     <section>
       <!-- <Rotation /> -->
       <moduleVideo ref="moduleVideo" :toHome="toHome" />
     </section>
     <footer>
-      <el-button type="success" class="startcat">開始點餐</el-button>
+      <el-button type="success" class="startcat">
+        <i class="iconfont icon-diancan"></i> 開始點餐
+      </el-button>
       <el-button class="switchlang" type="warning" @click="switchlang">
-        <i class="el-icon-s-tools icon"></i> 中文
+        <i class="iconfont icon-world"></i> 中文
       </el-button>
     </footer>
+    <div class="mask"></div>
   </div>
 </template>
 <script>
@@ -44,12 +50,20 @@ export default {
   margin: 0 auto;
   min-width: 1024px;
 }
+.mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+}
 header {
   height: 20%;
   box-sizing: border-box;
-  padding: 40px;
-  h1 {
-    text-align: center;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 section {
@@ -60,28 +74,33 @@ footer {
   height: 24%;
   text-align: center;
   box-sizing: border-box;
-  padding: 20px;
+
   position: relative;
   .startcat {
     border: none;
     width: 50%;
-    height: 80px;
+    height: 100px;
     padding: 20px;
-    font-size: 30px;
+    font-size: 50px;
     box-shadow: 10px 10px 5px #888888;
     border-radius: 10px;
     background-color: #67c23a;
     animation: startorder 4s infinite;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
   }
   .switchlang {
     position: absolute;
     bottom: 0px;
     right: 0px;
-    width: 20%;
-    height: 70px;
-    font-size: 30px;
+    width: 25%;
+    height: 100px;
+    font-size: 50px;
     margin: 20px;
-
     border-radius: 40px;
     font-weight: 600;
   }

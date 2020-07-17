@@ -1,18 +1,26 @@
 <template>
   <div class="wrap">
-    <header>logo/轮播图</header>
+    <header>
+      <Rotation />
+    </header>
     <section>
       <p>請選擇堂食或者外帶</p>
       <div class="choice">
-        <el-button type="warning" @click="toCategoryList">堂食</el-button>
-        <el-button type="warning" @click="toCategoryList">外帶</el-button>
+        <el-button type="warning" @click="toCategoryList">
+          <i class="iconfont icon-tangshi"></i> 堂食
+        </el-button>
+        <el-button type="warning" @click="toCategoryList">
+          <i class="iconfont icon-waidai"></i> 外帶
+        </el-button>
       </div>
       <button
         type="button"
         class="btn btn-primary btn-lg show-modal leave"
         data-toggle="modal"
         data-target="#myModal"
-      >離開</button>
+      >
+        <i class="iconfont icon-icon-test"></i> 離開
+      </button>
     </section>
 
     <div class="demo" style="min-height: 550px;">
@@ -56,13 +64,20 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'home',
   components: {},
   mounted() {},
   methods: {
-    toCategoryList() {
-      this.$router.push({ path: '/categorylist' })
+    async toCategoryList() {
+      const result = await this.$store.dispatch('reqMenupageInfo')
+      const { data } = result
+      if (result.code === 200) {
+        this.$store.commit('UPDATE_MENUPAGE_INFO', data)
+
+        this.$router.replace({ path: '/categorylist' })
+      }
     },
     toOuterLayer() {
       this.$router.go(-1)
@@ -83,10 +98,17 @@ export default {
   section {
     padding: 0px 50px !important;
     height: 70%;
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
   }
   p {
-    // padding: 50px;
     text-align: center;
+    padding: 100px;
+    // flex: 1;
+    font-size: 50px;
   }
   .modal-box {
     // display: flex;
@@ -95,8 +117,14 @@ export default {
   .choice {
     width: 100%;
     display: flex;
-    height: 60%;
+    height: 40%;
     justify-content: space-evenly;
+    position: relative;
+    .iconfont {
+      margin-bottom: 100px;
+      display: block;
+      font-size: 100px;
+    }
     button {
       font-size: 50px;
       font-weight: 700;
@@ -108,10 +136,10 @@ export default {
   }
   .leave {
     width: 50%;
-    height: 70px;
-    font-size: 30px;
+    height: 100px;
+    font-size: 50px;
     font-weight: 700;
-    margin: 30px;
+    margin-top: 200px;
   }
   .modal-dialog {
     margin: 200px 0px;

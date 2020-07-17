@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div class="attributeTab">
+      <!-- <div class="attributeTab">
         <ul class="left">
           <li @click="switchaAttribute(0,'溫度')" :class="{attributeActive:isactive===0}">温度</li>
           <li @click="switchaAttribute(1,'口味')" :class="{attributeActive:isactive===1}">口味</li>
@@ -52,7 +52,8 @@
             <li>加xxxx111</li>
           </ul>
         </div>
-      </div>
+      </div>-->
+      <AStyleLayout />
       <div class="attributeBtn">
         <el-button type="success" @click="isShowAttributeInner">确定</el-button>
         <el-button type="danger" @click="isShowAttributeInner">取消</el-button>
@@ -61,7 +62,11 @@
   </div>
 </template>
 <script>
+import AStyleLayout from '../AStyleLayout'
 export default {
+  components: {
+    AStyleLayout
+  },
   data() {
     return {
       tabPosition: 'left',
@@ -71,7 +76,7 @@ export default {
       attributeName: '溫度'
     }
   },
-  components: {},
+
   mounted() {},
   methods: {
     handleClose(tag) {

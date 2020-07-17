@@ -9,7 +9,10 @@
         round
         data-toggle="modal"
         data-target="#myModal"
-      >重新點單</el-button>
+        @click="$switchFrames('重新點單')"
+      >
+        <i class="iconfont icon-zhongxin"></i> 重新點單
+      </el-button>
     </div>
     <!-- 轮播图 -->
     <div class="rotation">
@@ -22,12 +25,17 @@
           <ul class="list-group">
             <li
               class="list-group-item"
+              ref="leftItem"
               :class="{active1:active===index}"
               @click="isActive(index,item.name)"
-              v-for="(item,index) in  arr"
+              v-for="(item,index) in  menupageList"
               :key="index"
+              :style="item.pageCSS"
             >
-              <img :src="item.src" alt />
+              <img
+                src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=185888452,394183420&fm=26&gp=0.jpg"
+                alt
+              />
               <p>{{item.name}}</p>
             </li>
           </ul>
@@ -35,38 +43,28 @@
         <div class="col-md-9 right">
           <p class="category1Name">{{name}}</p>
 
-          <div id="wrapperRight">
+          <div id="wrapperRight" ref="wrapperRight">
             <div class="wrapperOuter">
               <ul ref="rowRight" class="rowRight">
-                <li ref="item0">
+                <li
+                  :ref="`item${index}`"
+                  v-for="(menupage,index) in menupageListRight"
+                  :key="index"
+                >
                   <div
                     class="col-md-4 rightlist"
-                    v-for="(item,index) in 20"
+                    v-for="(item,index) in menupage"
                     :key="index"
                     @click="toAttriButeList"
                   >
                     <div class="item">
                       <img
-                        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594382405955&di=7a062ff045b2ebb222e302a043b31bbe&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20190519%2Fe5dc5d755d0643819c09dc40e67b5a80.jpeg"
+                        src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=185888452,394183420&fm=26&gp=0.jpg"
                         alt
                       />
                       <p>
-                        <span>猪扒饭</span>
-                        <span style="display:block">￥180</span>
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li ref="item1">
-                  <div class="col-md-4 rightlist" v-for="(item,index) in 20" :key="index">
-                    <div class="item">
-                      <img
-                        src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1623532870,314241626&fm=26&gp=0.jpg"
-                        alt
-                      />
-                      <p>
-                        <span>牛扒饭</span>
-                        <span style="display:block">￥200</span>
+                        <span>{{item.name===""?111:item.name}}</span>
+                        <span style="display:block">￥{{item.menuitem?item.menuitem.price1:'111'}}</span>
                       </p>
                     </div>
                   </div>
@@ -109,53 +107,29 @@
       </div>
 
       <div class="leaveAndOk">
-        <el-button type="warning" round>确定订单</el-button>
-        <el-button type="danger" round>离开</el-button>
+        <el-button type="warning" round>
+          <i class="iconfont icon-icon-"></i> 确定订单
+        </el-button>
+        <el-button
+          round
+          class="reelection btn btn-primary btn-lg show-modal leave"
+          type="danger"
+          data-toggle="modal"
+          data-target="#myModal"
+          @click="$switchFrames({text:'离开',fn:leaveCategoryList})"
+        >
+          <i class="iconfont icon-icon-test"></i> 离开
+        </el-button>
       </div>
     </div>
     <!-- 模态框 -->
-    <div class="demo" style="min-height: 550px;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="modal-box">
-              <!-- Button trigger modal -->
-              <!-- Modal -->
-              <div
-                class="modal fade"
-                id="myModal"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="myModalLabel"
-                ref="myModalLabel"
-              >
-                <div class="modal-dialog" role="document" style=" width: 50%;">
-                  <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="modal-body">
-                      <div class="icon">!</div>
-                      <h3 class="title">提示!</h3>
-                      <p class="description">您确定要取消订餐吗？</p>
-                      <div class="signout">
-                        <button class="subscribe" data-dismiss="modal">确定</button>
-                        <button class="subscribe" data-dismiss="modal">取消</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <StateFrames />
   </div>
 </template>
 <script>
 import IScroll from 'iscroll/build/iscroll-probe'
 import Rotation from '../../components/Rotation'
+import { mapState, mapGetters } from 'vuex'
 export default {
   components: { Rotation },
   name: 'categoryList',
@@ -166,84 +140,26 @@ export default {
       active: 0,
       scrollFlag: false,
       iscrollRight: null,
-      name: '老猪肘饭', //大类标题
-      arr: [
-        {
-          src:
-            'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=267745403,3446800744&fm=26&gp=0.jpg',
-          name: '老猪肘饭'
-        },
-        {
-          src:
-            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1623532870,314241626&fm=26&gp=0.jpg',
-          name: '牛扒豆腐饭'
-        },
-        {
-          src:
-            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1381169593,1815594047&fm=26&gp=0.jpg',
-          name: '爆炒榴莲'
-        },
-        {
-          src:
-            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1844127766,1762333748&fm=26&gp=0.jpg',
-          name: '清蒸红烧肉'
-        },
-        {
-          src:
-            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1381169593,1815594047&fm=26&gp=0.jpg',
-          name: '水煮鱼饭'
-        },
-        {
-          src:
-            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594375761686&di=08c6c9d53983afe7f3255a100f2bd82e&imgtype=0&src=http%3A%2F%2Fimg.article.pchome.net%2F00%2F24%2F26%2F33%2Fpic_lib%2Fwm%2F004.jpg',
-          name: '金牌精選'
-        }
-      ]
+      name: '', //大类标题
+      offsetTopList: [],
+      styleObject: ''
     }
   },
   mounted() {
     this.date()
-
+    // for (let index = 0; index < this.menupageListRight.length; index++) {
+    //   this.offsetTopList.push(-this.$refs[`item${index}`][0].offsetTop)
+    // }
+    // if ($('p')[0].innerText.length >= 15) {
+    //   console.log($('p')[0].style.fontSize, 1)
+    //   // $('p')[0].style.fontSize = 25 + 'px'
+    // }
+    // console.log($('p')[0].css('fontSize'))
+    console.log(
+      this.$refs.leftItem[0].offsetHeight,
+      this.$refs.leftItem[0].offsetHeight
+    )
     //滚动条
-    this.$nextTick(() => {
-      this.iscroll = new IScroll('#wrapper', {
-        mouseWheel: true,
-        scrollbars: 'custom',
-        scrollY: true,
-        interactiveScrollbars: true,
-        startY: 0
-      })
-      this.iscrollRight = new IScroll('#wrapperRight', {
-        mouseWheel: true,
-        scrollbars: 'custom',
-        scrollY: true,
-
-        startY: 0,
-        probeType: 3,
-        mouseWheel: true
-      })
-      this.iscrollRight.on('scroll', () => {
-        if (!this.$refs.item1) return
-
-        if (this.scrollFlag) return
-        if (this.iscrollRight.y > -this.$refs.item1.offsetTop * 0.5) {
-          this.active = 0
-        } else if (this.iscrollRight.y <= -this.$refs.item1.offsetTop) {
-          this.name = 1
-          this.active = 1
-        }
-      })
-      this.iscrollRight.on('scrollEnd', () => {
-        if (!this.scrollFlag) return
-        this.iscrollRight.scrollTo(0, this.iscrollRight.$offsetTop, 500)
-      })
-      this.iscrollRight.on('beforeScrollStart', () => {
-        this.scrollFlag = false
-      })
-      this.iscrollRight.on('scrollCancel', () => {
-        console.log(1)
-      })
-    })
   },
   activated() {
     this.date()
@@ -275,16 +191,141 @@ export default {
     isActive(index, name) {
       if (!this.iscrollRight) return
       this.scrollFlag = true
-      const offsetTop = -this.$refs[`item${index}`].offsetTop
+      let offsetTop = -this.$refs[`item${index}`][0].offsetTop
       this.iscrollRight.$offsetTop = offsetTop
-
+      this.iscrollRight.$index = index
       this.iscrollRight.scrollTo(0, offsetTop, 500)
+      this.leftScroll(index)
       this.active = index
       this.name = name
     },
+
     //路由跳转
     toAttriButeList() {
       this.$router.push({ path: '/attributelist' })
+    },
+    // async getMenupageInfo() {
+    //   const result = await this.$store.dispatch('reqMenupageInfo')
+    //   const { data } = result
+    //   console.log(data)
+    //   if (result.code === 200) {
+    //     this.styleObject.backgroundColor = `rgba(${data[0].backcolor})`
+    //     this.styleObject.color = `rgba(${data[0].forecolor})`
+    //     console.log(data[0].font.split[','])
+    //     this.name = data[0].name
+    //     this.styleObject.font = 'monospace,BOLD,14'
+    //     this.$store.commit('UPDATE_MENUPAGE_INFO', data)
+    //   }
+    // },
+    leftScroll(index) {
+      if (this.iscroll.y > this.iscroll.maxScrollY) {
+        this.iscroll.scrollTo(
+          0,
+          -this.$refs.leftItem[0].offsetHeight * index,
+          500
+        )
+        this.iscroll.$index = index
+      }
+    },
+    leaveCategoryList() {
+      this.$router.go(-1)
+      // this.$router.replace({ path: '/home' })
+      console.log(history)
+    }
+  },
+  computed: {
+    ...mapState({ menupageList: state => state.categoryList.menupageList }),
+    ...mapGetters(['menupageListRight'])
+  },
+  watch: {
+    menupageList: {
+      handler() {
+        this.$nextTick(() => {
+          this.iscroll = new IScroll('#wrapper', {
+            mouseWheel: true,
+            scrollbars: 'custom',
+            scrollY: true,
+            interactiveScrollbars: true,
+            startY: 0
+          })
+        })
+        this.name = this.menupageList[0].name
+      },
+      immediate: true
+    },
+    menupageListRight: {
+      handler() {
+        this.$nextTick(() => {
+          this.iscrollRight = new IScroll('#wrapperRight', {
+            mouseWheel: true,
+            scrollbars: 'custom',
+            scrollY: true,
+            startY: 0,
+            probeType: 3,
+            mouseWheel: true
+          })
+          this.iscrollRight.on('scroll', () => {
+            var timer = null
+            if (!this.$refs.item1 || this.scrollFlag) return
+
+            for (
+              let index = 0;
+              index < this.menupageListRight.length;
+              index++
+            ) {
+              let top = this.$refs[`item${index + 1}`]
+                ? -this.$refs[`item${index + 1}`][0].offsetTop
+                : this.$refs[`item${index - 1}`][0].offsetTop
+
+              if (
+                this.iscrollRight.y <=
+                  -this.$refs[`item${index}`][0].offsetTop &&
+                this.iscrollRight.y >= top
+              ) {
+                this.name = this.menupageList[index].name
+                this.active = index
+                this.leftScroll(index)
+                if (this.iscroll.$index > index) {
+                  console.log(this.iscroll.$index)
+                  this.iscroll.scrollTo(
+                    0,
+                    -this.$refs.leftItem[0].offsetHeight * index,
+                    500
+                  )
+                }
+              }
+              if (
+                this.iscrollRight.maxScrollY +
+                  this.$refs.wrapperRight.offsetHeight / 3 >=
+                parseInt(this.iscrollRight.y)
+              ) {
+                this.name = this.menupageListRight[
+                  this.menupageListRight.length - 1
+                ].name
+                this.active = this.menupageListRight.length - 1
+                this.name = this.menupageList[
+                  this.menupageListRight.length - 1
+                ].name
+              }
+            }
+          })
+          this.iscrollRight.on('scrollEnd', () => {
+            if (!this.$refs.item1 || !this.scrollFlag) return
+            let offsetTop = this.iscrollRight.$offsetTop
+            if (
+              this.iscrollRight.$index ===
+              this.menupageListRight.length - 1
+            ) {
+              offsetTop = this.iscrollRight.maxScrollY
+            }
+            this.iscrollRight.scrollTo(0, offsetTop, 500)
+          })
+          this.iscrollRight.on('beforeScrollStart', () => {
+            this.scrollFlag = false
+          })
+        })
+      },
+      immediate: true
     }
   }
 }
@@ -302,27 +343,31 @@ export default {
   overflow: hidden;
 }
 .categoryheader {
-  // padding: 2%;
   position: relative;
   background-color: #e6a23c;
-  // height: 5%;
+
   box-sizing: content-box;
   display: flex;
   align-items: center;
   justify-content: center;
+  .time {
+    font-size: 30px;
+  }
   .reelection {
     height: 70%;
     position: absolute;
-    top: 15%;
+
     right: 2%;
     font-size: 30px;
     font-weight: 600;
+    i {
+      font-size: 30px;
+    }
   }
 }
 section {
   height: 55%;
   text-align: right;
-  overflow: hidden;
   .className {
     width: 70%;
     height: 80px;
@@ -342,10 +387,9 @@ section {
       position: relative;
       width: 25%;
       .list-group {
-        // height: 2000px;
         .list-group-item {
           margin: 0px 0px 20px 0px;
-          width: 90%;
+          width: 100%;
           img {
             width: 100%;
             height: 150px;
@@ -360,7 +404,8 @@ section {
       height: 100%;
       #wrapperRight {
         width: 100%;
-        height: 1034px;
+        // height: 1034px;
+        height: calc(100% - 50px);
         overflow: hidden;
         position: relative;
       }
@@ -370,13 +415,28 @@ section {
         flex-wrap: wrap;
         min-width: 100%;
         padding: 0;
+        li {
+          width: 100%;
+          min-height: 100%;
+          position: relative;
+          &::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            width: 90%;
+            height: 1px;
+            right: 0;
+            left: 0;
+            margin: auto;
+            background-color: black;
+          }
+        }
       }
 
       .rightlist {
         padding: 0;
         display: flex;
         justify-content: center;
-        // background-color: #acabaa;
       }
       .item {
         width: 90%;
@@ -398,6 +458,8 @@ section {
       box-sizing: content-box;
       border-radius: 10px;
       display: inline-block;
+      height: 50px;
+      line-height: 50px;
     }
   }
   .list-group-item {
@@ -419,11 +481,7 @@ section {
     background: linear-gradient(to bottom, #acabaa 0%, #ffffff 100%);
   }
 }
-.demo {
-  top: 0;
-  position: absolute;
-  // z-index: -1;
-}
+
 .rotation {
   height: 20%;
 }
@@ -437,12 +495,13 @@ section {
     width: 100%;
     text-align: center;
 
-    height: 20%;
-    padding: 10px;
+    height: 50px;
+    line-height: 50px;
+
     background-color: chocolate;
   }
   .centent {
-    height: 55%;
+    height: 50%;
     // padding: 2%;
     div {
       height: 100%;
@@ -454,46 +513,22 @@ section {
   }
   .leaveAndOk {
     width: 100%;
-    height: 20%;
+    height: 25%;
     button {
       width: 35%;
       height: 100%;
-      font-size: 30px;
+      font-size: 35px;
       margin: 0;
+      i {
+        font-size: 35px;
+      }
       &:nth-last-child(2) {
         float: right;
-        // border-radius: 50% 50% 0 0 0 0 50% 50%;
       }
     }
   }
 }
 
-.modal-dialog {
-  margin: 200px 0px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-}
-.modal-dialog .modal-content {
-  width: 550px;
-}
-
-.modal-dialog .modal-content .modal-body .description {
-  font-size: 40px !important;
-  font-weight: 700 !important;
-}
-.modal-dialog .modal-content .modal-body .subscribe {
-  width: 200px;
-  height: 70px;
-  font-size: 30px;
-}
 @media screen and (max-height: 1400px) {
   .rotation {
     display: none;

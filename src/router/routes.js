@@ -22,6 +22,10 @@ export default [
     path: "/orderdetails",
     component: () => import('../pages/Orderdetails')
   },
+  {
+    path: "/pay",
+    component: () => import('../pages/Pay')
+  },
 
   {
     path: "/",

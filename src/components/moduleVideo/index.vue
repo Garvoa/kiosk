@@ -3,7 +3,6 @@
     <video id="video_1" class="video-js vjs-default-skin" ref="videojs">
       <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4" />
     </video>
-    <div class="mask"></div>
   </div>
 </template>
 <script>
@@ -60,11 +59,6 @@ export default {
 }
 </script>
 <style lang="less">
-// .video-js .vjs-control-bar {
-//   width: 100% !important;
-//   height: 100% !important;
-//   opacity: 0 !important;
-// }
 .video_1 {
   width: 100%;
   height: 100%;
@@ -73,16 +67,4 @@ export default {
   width: 100% !important;
   height: 100% !important;
 }
-// #video_1_html5_api {
-//   width: 100% !important;
-//   height: 100% !important;
-//   opacity: 0 !important;
-// }
-// .video-js .video-js::after {
-//   content: '';
-//   width: 100%;
-//   height: 100%;
-//   position: absolute;
-//   top: 0;
-// }
 </style>
