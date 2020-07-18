@@ -24,8 +24,10 @@
                     src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153677118,3123000136&fm=26&gp=0.jpg"
                     alt
                   />
-                  <p>配可樂</p>
-                  <p>￥0.00</p>
+                  <div>
+                    <p>配可樂</p>
+                    <p>￥0.00</p>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -44,13 +46,20 @@
             </div>
             <div class="wrap">
               <ul class="row configlist">
-                <li class="slide col-md-4" v-for="(item,index) in 25" :key="index">
+                <li
+                  class="slide col-md-4"
+                  v-for="(item,index) in 25"
+                  :key="index"
+                  @click="openAttributeModule"
+                >
                   <img
                     src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153677118,3123000136&fm=26&gp=0.jpg"
                     alt
                   />
-                  <p>配可樂</p>
-                  <p>￥0.00</p>
+                  <div>
+                    <p>配可樂</p>
+                    <p>￥0.00</p>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -69,13 +78,20 @@
             </div>
             <div class="wrap">
               <ul class="row configlist">
-                <li class="slide col-md-4" v-for="(item,index) in 25" :key="index">
+                <li
+                  class="slide col-md-4"
+                  v-for="(item,index) in 25"
+                  :key="index"
+                  @click="openAttributeModule"
+                >
                   <img
                     src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153677118,3123000136&fm=26&gp=0.jpg"
                     alt
                   />
-                  <p>配可樂</p>
-                  <p>￥0.00</p>
+                  <div>
+                    <p>配可樂</p>
+                    <p>￥0.00</p>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -101,8 +117,10 @@
                     src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153677118,3123000136&fm=26&gp=0.jpg"
                     alt
                   />
-                  <p>配可樂</p>
-                  <p>￥0.00</p>
+                  <div>
+                    <p>配可樂</p>
+                    <p>￥0.00</p>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -126,8 +144,10 @@
                     src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153677118,3123000136&fm=26&gp=0.jpg"
                     alt
                   />
-                  <p>配可樂</p>
-                  <p>￥0.00</p>
+                  <div>
+                    <p>配可樂</p>
+                    <p>￥0.00</p>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -173,7 +193,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .bAttributes {
   height: 100%;
   overflow: hidden;
@@ -245,15 +265,16 @@ export default {
               display: flex;
               flex-wrap: wrap;
               justify-content: center;
-              .price {
-                padding: 10px;
+              margin-bottom: 20px;
+              div {
+                background-color: #dddddd;
+                width: 70%;
                 p {
                   margin: 0;
-                }
-                span {
-                  padding: 10px;
+                  text-align: center;
                 }
               }
+
               img {
                 width: 70%;
               }
@@ -262,7 +283,7 @@ export default {
 
           .icon {
             position: absolute;
-            bottom: 10px;
+            bottom: 40%;
             right: 20px;
             font-size: 50px;
             animation: translateIcon 1s infinite;
@@ -293,15 +314,15 @@ export default {
 
 @keyframes translateIcon {
   0% {
-    bottom: 20px;
+    transform: rotate(90deg) translateX(0px);
   }
 
   50% {
-    bottom: 0px;
+    transform: rotate(90deg) translateX(20px);
   }
 
   100% {
-    bottom: 20px;
+    transform: rotate(90deg) translateX(0px);
   }
 }
 </style>

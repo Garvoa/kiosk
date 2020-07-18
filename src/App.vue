@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition :name="transitionName" mode="out-in">
-      <keep-alive :include="keepAlive" exclude="categoryList">
+      <keep-alive :include="keepAlive" exclude="categoryList,attributelist">
         <router-view class="Router"></router-view>
       </keep-alive>
     </transition>
@@ -37,14 +37,13 @@ export default {
     ...mapState({ isLoading: state => state.isLoading })
   },
   mounted() {
-    let params = {
-      itemid: 1001,
-      isselfmodifier: 0,
-      familyid: 1
-    }
-
-    console.log(JSON.stringify(params))
-    console.log(getMenumodInfo(params))
+    // let params = {
+    //   itemid: 1001,
+    //   isselfmodifier: 0,
+    //   familyid: 1
+    // }
+    // console.log(JSON.stringify(params))
+    // console.log(getMenumodInfo(params))
   }
 }
 </script>

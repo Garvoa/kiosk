@@ -11,6 +11,7 @@ import Loading from "./components/Loading"
 import 'default-passive-events'
 import StateFrames from "../src/components/StateFrames"
 import VueLazyload from 'vue-lazyload'
+import './mock'
 Vue.prototype.$moment = moment
 Vue.prototype.$moment.locale('zh-cn')
 Vue.use(ElementUI)
@@ -19,6 +20,7 @@ Vue.config.productionTip = false
 Vue.use(VueLazyload, {
   // loading
 })
+Vue.prototype.$bus = new Vue()
 Vue.component('Loading', Loading)
 Vue.component('Rotation', Rotation)
 Vue.component('StateFrames', StateFrames)

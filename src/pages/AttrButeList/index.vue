@@ -10,10 +10,16 @@
         />
       </div>
       <div class="col-md-7 foodName">
-        <p>猪扒饭</p>
-        <el-button>特别要求</el-button>
+        <p>{{this.$route.query.name}}</p>
+        <!-- <el-button>特别要求</el-button> -->
+        <ul>
+          <li v-for="(item,index) in attrButeDetails" :key="index">
+            <span>{{item.name}}</span>
+            <span>{{item.num}}</span>
+          </li>
+        </ul>
       </div>
-      <div class="col-md-3 price">￥35</div>
+      <div class="col-md-3 price">总金额 ￥{{this.$route.query.price}}</div>
     </div>
 
     <AttriButeLayout :tranlateXAttrModule="tranlateXAttrModule" />
@@ -22,12 +28,16 @@
 
 <script>
 import AttriButeLayout from '../../layout'
+import { mapState, mapGetters } from 'vuex'
 export default {
+  name: 'attributelist',
   components: {
     AttriButeLayout
   },
   data() {
-    return {}
+    return {
+      attrButeDetails: []
+    }
   },
   methods: {
     tranlateXAttrModule(index) {
@@ -51,7 +61,29 @@ export default {
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（访问DOM元素）
-  mounted() {}
+  mounted() {
+    this.$bus.$on('addAndDEL', attrObj => {
+      let flag = false
+      let attrIndex
+
+      if (this.attrButeDetails.length > 0) {
+        this.attrButeDetails.forEach((item, index) => {
+          if (item.name === attrObj.name) {
+            flag = true
+            attrIndex = index
+          }
+          if (item.num === '*0') {
+            this.attrButeDetails.splice(index, 1)
+          }
+        })
+      }
+      if (flag) {
+        this.attrButeDetails[attrIndex].num = attrObj.num
+      } else {
+        this.attrButeDetails.push(attrObj)
+      }
+    })
+  }
 }
 </script>
 <style lang="less">
@@ -72,7 +104,7 @@ export default {
   }
   .entree {
     position: relative;
-    height: 20%;
+    height: 13%;
     .foodImg {
       height: 100%;
       border-radius: 5%;
@@ -90,6 +122,13 @@ export default {
         font-size: 30px;
         position: absolute;
         bottom: 0;
+      }
+      span {
+        display: inline-block;
+        margin: 0px 20px;
+      }
+      li {
+        font-size: 30px;
       }
     }
     .price {

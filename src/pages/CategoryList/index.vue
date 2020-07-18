@@ -55,7 +55,7 @@
                     class="col-md-4 rightlist"
                     v-for="(item,index) in menupage"
                     :key="index"
-                    @click="toAttriButeList"
+                    @click="toAttriButeList(item)"
                   >
                     <div class="item">
                       <img
@@ -130,6 +130,7 @@
 import IScroll from 'iscroll/build/iscroll-probe'
 import Rotation from '../../components/Rotation'
 import { mapState, mapGetters } from 'vuex'
+
 export default {
   components: { Rotation },
   name: 'categoryList',
@@ -201,8 +202,13 @@ export default {
     },
 
     //路由跳转
-    toAttriButeList() {
-      this.$router.push({ path: '/attributelist' })
+    toAttriButeList(item) {
+      this.$store.dispatch('reqMenumodInfo')
+
+      this.$router.push({
+        path: '/attributelist',
+        query: { name: item.name, price: item.menuitem.price1 }
+      })
     },
     // async getMenupageInfo() {
     //   const result = await this.$store.dispatch('reqMenupageInfo')

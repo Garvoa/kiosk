@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "name": "配汽水",
+    "list": [
+      {
+        "item": "可乐",
+        "price": " 0.00",
+        "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595050883750&di=d050112606cb3e4ad9af403c6ca72a39&imgtype=0&src=http%3A%2F%2Fimage.sonhoo.com%2Fserver14%2Fphotos%2Fphoto%2Fmr.cai%2Fe27c787c3c125fecf957275c6b26aaaf.jpg",
+        "attribute": ["多冰", "少冰", "常温"],
+        "num": 0
+      },
+      {
+        "item": "雪碧",
+        "price": " 0.00",
+        "img": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1994580310,2422786815&fm=26&gp=0.jpg",
+        "attribute": ["多冰", "少冰", "常温"],
+        "num": 0
+      },
+      {
+        "item": "可乐",
+        "price": " 0.00",
+        "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595050883750&di=d050112606cb3e4ad9af403c6ca72a39&imgtype=0&src=http%3A%2F%2Fimage.sonhoo.com%2Fserver14%2Fphotos%2Fphoto%2Fmr.cai%2Fe27c787c3c125fecf957275c6b26aaaf.jpg",
+        "attribute": ["多冰", "少冰", "常温"],
+        "num": 0
+      },
+      {
+        "item": "雪碧",
+        "price": " 0.00",
+        "img": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1994580310,2422786815&fm=26&gp=0.jpg",
+        "attribute": ["多冰", "少冰", "常温"],
+        "num": 0
+      },
+      {
+        "item": "可乐",
+        "price": " 0.00",
+        "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595050883750&di=d050112606cb3e4ad9af403c6ca72a39&imgtype=0&src=http%3A%2F%2Fimage.sonhoo.com%2Fserver14%2Fphotos%2Fphoto%2Fmr.cai%2Fe27c787c3c125fecf957275c6b26aaaf.jpg",
+        "attribute": ["多冰", "少冰", "常温"],
+        "num": 0
+      },
+      {
+        "item": "雪碧",
+        "price": " 0.00",
+        "img": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1994580310,2422786815&fm=26&gp=0.jpg",
+        "attribute": ["多冰", "少冰", "常温"],
+        "num": 0
+      },
+      {
+        "item": "可乐",
+        "price": " 0.00",
+        "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595050883750&di=d050112606cb3e4ad9af403c6ca72a39&imgtype=0&src=http%3A%2F%2Fimage.sonhoo.com%2Fserver14%2Fphotos%2Fphoto%2Fmr.cai%2Fe27c787c3c125fecf957275c6b26aaaf.jpg",
+        "attribute": ["多冰", "少冰", "常温"],
+        "num": 0
+      },
+      {
+        "item": "雪碧",
+        "price": " 0.00",
+        "img": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1994580310,2422786815&fm=26&gp=0.jpg",
+        "attribute": ["多冰", "少冰", "常温"],
+        "num": 0
+      },
+      {
+        "item": "可乐",
+        "price": " 0.00",
+        "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595050883750&di=d050112606cb3e4ad9af403c6ca72a39&imgtype=0&src=http%3A%2F%2Fimage.sonhoo.com%2Fserver14%2Fphotos%2Fphoto%2Fmr.cai%2Fe27c787c3c125fecf957275c6b26aaaf.jpg",
+        "attribute": ["多冰", "少冰", "常温"],
+        "num": 0
+      },
+      {
+        "item": "雪碧",
+        "price": " 0.00",
+        "img": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1994580310,2422786815&fm=26&gp=0.jpg",
+        "attribute": ["多冰", "少冰", "常温"],
+        "num": 0
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "另加配料",
+    "list": [
+      {
+        "item": "加鱼丸",
+        "price": "5.00",
+        "img": "",
+        "attribute": [],
+        "num": 0
+      },
+      {
+        "item": "加鱼片",
+        "price": "6.00",
+        "img": "",
+        "attribute": [],
+        "num": 0
+      },
+      {
+        "item": "加猪肉",
+        "price": "7.00",
+        "img": "",
+        "attribute": [],
+        "num": 0
+      },
+      {
+        "item": "加牛肉",
+        "price": "8.00",
+        "img": "",
+        "attribute": [],
+        "num": 0
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "辣度",
+    "list": [
+      {
+        "item": "中辣",
+        "price": " 0.00",
+        "img": "",
+        "attribute": [],
+        "num": 0
+      },
+      {
+        "item": "小辣",
+        "price": " 0.00",
+        "img": "",
+        "attribute": [],
+        "num": 0
+      },
+      {
+        "item": "大辣",
+        "price": " 0.00",
+        "img": "",
+        "attribute": [],
+        "num": 0
+      },
+      {
+        "item": "特辣",
+        "price": " 0.00",
+        "img": "",
+        "attribute": [],
+        "num": 0
+      }
+    ]
+  }
+]
