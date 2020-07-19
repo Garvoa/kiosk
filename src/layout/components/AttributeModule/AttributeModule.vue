@@ -53,7 +53,35 @@
           </ul>
         </div>
       </div>-->
-      <AStyleLayout />
+      <!-- <astyleLayout /> -->
+      <foldAttriBute :addAttribute="addAttribute">
+        <template slot="centent">
+          <span class="attributeName">{{}}</span>
+          <span class="severalItems">请选择1项</span>
+        </template>
+        <template slot="config">
+          <i class="el-icon-circle-plus"></i>
+          选择加配
+        </template>
+        <template slot="wrap">
+          <ul class="row configlist">
+            <li class="row">
+              <div class="itemAttriBute col-md-4" @click="addAttribute('多冰')">
+                <p>多冰</p>
+              </div>
+              <div class="itemAttriBute col-md-4" @click="addAttribute('少冰')">
+                <p>少冰</p>
+              </div>
+              <div class="itemAttriBute col-md-4" @click="addAttribute('常温')">
+                <p>常温</p>
+              </div>
+              <div class="itemAttriBute col-md-4" @click="addAttribute('热')">
+                <p>热</p>
+              </div>
+            </li>
+          </ul>
+        </template>
+      </foldAttriBute>
       <div class="attributeBtn">
         <el-button type="success" @click="isShowAttributeInner">确定</el-button>
         <el-button type="danger" @click="isShowAttributeInner">取消</el-button>
@@ -62,16 +90,17 @@
   </div>
 </template>
 <script>
-import AStyleLayout from '../AStyleLayout'
+import foldAttriBute from '../foldAttriBute'
 export default {
   components: {
-    AStyleLayout
+    foldAttriBute
   },
+
   data() {
     return {
       tabPosition: 'left',
       activeName: 'second',
-      tags: [],
+      tags: [{ name: 'duobing', type: 'success' }],
       isactive: 0,
       attributeName: '溫度'
     }
@@ -91,6 +120,7 @@ export default {
       this.$refs.rightList.children[index].style.display = 'block'
     },
     addAttribute(name) {
+      console.log(11)
       let flag = true
       this.tags.find(item => {
         if (item.name === name) {
@@ -206,6 +236,8 @@ export default {
         position: relative;
         border-radius: 10px;
         padding: 0px 5%;
+        text-align: center;
+        white-space: pre-wrap;
         .attributeTag {
           margin: 3% 3% 0% 3%;
 

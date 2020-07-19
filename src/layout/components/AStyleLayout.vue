@@ -1,5 +1,5 @@
 <template>
-  <div class="SelectAttributes">
+  <!-- <div class="SelectAttributes">
     <div
       class="item"
       :class="{active:isClose===attrIndex}"
@@ -16,7 +16,12 @@
       </div>
       <div class="wrap" :class="{close:isClose!==attrIndex}">
         <ul class="row configlist">
-          <li class="slide col-md-4" v-for="(item,index) in attrBute.list" :key="index">
+          <li
+            class="slide col-md-4"
+            v-for="(item,index) in attrBute.list"
+            :key="index"
+            @click="openAttributeModule"
+          >
             <img :src="item.img" alt />
 
             <div>
@@ -37,8 +42,8 @@
       <div class="icon" :class="{isShow:isShowIcon,close:isClose!==attrIndex}">
         <i class="el-icon-d-arrow-right"></i>
       </div>
-    </div>
-    <!-- <div class="item" :class="{active:isClose===1}">
+  </div>-->
+  <!-- <div class="item" :class="{active:isClose===1}">
       <div class="centent">
         <span class="attributeName">配汽水</span>
         <span class="severalItems">请选择1项</span>
@@ -62,21 +67,73 @@
       <div class="icon" :class="{isShow:isShowIcon,close:isClose!==1}">
         <i class="el-icon-d-arrow-right"></i>
       </div>
-    </div>-->
-  </div>
+  </div>-->
+  <foldAttriBute>
+    <template slot="centent" slot-scope="{attrBute}">
+      <span class="attributeName">{{attrBute.name}}</span>
+      <span class="severalItems">请选择1项</span>
+    </template>
+    <template slot="config">
+      <i class="el-icon-circle-plus"></i>
+      选择加配
+    </template>
+    <template slot="wrap">
+      <ul class="row configlist">
+        <li
+          class="slide col-md-4"
+          v-for="(item,index) in 10"
+          :key="index"
+          @click="openAttributeModule"
+        >
+          <img :src="item.img" alt />
+
+          <div>
+            <p>
+              <span>{{item.item}}</span>
+              <span class="price">￥{{item.price}}</span>
+            </p>
+            <p v-if="!item.img">
+              <i class="el-icon-circle-plus" @click="addAttrBute(item,'+')"></i>
+              <span class="number">{{item.num||0}}</span>
+              <i class="el-icon-remove" @click="addAttrBute(item,'-')"></i>
+              <i></i>
+            </p>
+          </div>
+        </li>
+      </ul>
+    </template>
+
+    <template slot="icon" slot-scope="attrIndex">
+      <div class="icon" :class="{isShow:isShowIcon,close:isClose!==attrIndex}">
+        <i class="el-icon-d-arrow-right"></i>
+      </div>
+    </template>
+    <template slot="AttributeModule">
+      <AttributeModule ref="AttributeModule" />
+    </template>
+  </foldAttriBute>
+
+  <!-- </div> -->
 </template>
 <script>
+import foldAttriBute from './foldAttriBute'
 import LayoutMixin from '../mixin'
+import AttributeModule from './AttributeModule/AttributeModule'
 import '../css/layout.less'
 import { mapState } from 'vuex'
 export default {
-  components: {},
+  // name: 'astyleLayout',
+  components: { AttributeModule, foldAttriBute },
   mixins: [LayoutMixin],
   data() {
     return {}
   },
   mounted() {},
-  methods: {}
+  methods: {
+    openAttributeModule() {
+      this.$refs.AttributeModule.isShowAttributeInner(1)
+    }
+  }
 }
 </script>
 <style lang="less">
