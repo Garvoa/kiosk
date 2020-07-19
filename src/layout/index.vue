@@ -1,7 +1,9 @@
 <template>
   <div class="styleLayoutwrap">
-    <el-button class="qq" type="danger" @click="is=!is">切换风格</el-button>
-    <AStyleLayout v-if="is" />
+    <div class="da">
+      <el-button class="qq" type="danger" @click="is=!is">切换风格</el-button>
+    </div>
+    <AStyleLayout v-if="!is" />
     <BStyleLaout v-else :tranlateXAttrModule="tranlateXAttrModule" />
   </div>
 </template>
@@ -27,8 +29,16 @@ export default {
 <style lang="less" >
 .styleLayoutwrap {
   width: 100%;
-  height: 75%;
+  height: 100%;
+  // overflow: auto;
+  // overflow-x: hidden;
+  .da {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+  }
   .qq {
+    float: left;
     margin-top: 30px;
     width: 200px;
     height: 70px;

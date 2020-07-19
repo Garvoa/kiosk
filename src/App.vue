@@ -57,7 +57,7 @@ export default {
   bottom: 0;
   width: 100%;
   margin: 0 auto;
-  overflow: hidden;
+  // overflow: hidden;
 }
 .slide-left-enter,
 .slide-right-leave-active {

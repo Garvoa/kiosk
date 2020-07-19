@@ -1,3 +1,4 @@
+import { mapState } from "vuex"
 export default {
   data() {
     return {
@@ -29,6 +30,38 @@ export default {
           })
         }
       )
+    },
+    openAndClose(index) {
+      this.isClose = index
+      setTimeout(() => {
+        if (
+          $('.wrap')[index].scrollTop >
+          $('.configlist')[index].offsetHeight - $('.wrap')[index].clientHeight
+        ) {
+          this.isShowIcon = true
+        } else {
+          this.isShowIcon = false
+        }
+      }, 300)
+    },
+    addAttrBute(item, type) {
+      if (item.num === 0 && type === '-') return
+      if (type === '+') {
+        item.num++
+
+        this.$bus.$emit('addAndDEL', {
+          name: item.item,
+          num: item.num,
+          price: item.price
+        })
+      } else {
+        item.num--
+        this.$bus.$emit('addAndDEL', {
+          name: item.item,
+          num: item.num,
+          price: item.price
+        })
+      }
     }
   },
   watch: {
@@ -37,5 +70,8 @@ export default {
         this.addEventIcon()
       })
     }
+  },
+  computed: {
+    ...mapState({ attrButeList: state => state.attrBute.attrButeList })
   }
 }

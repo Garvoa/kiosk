@@ -71,13 +71,14 @@ export default {
   mounted() {},
   methods: {
     async toCategoryList() {
-      const result = await this.$store.dispatch('reqMenupageInfo')
-      const { data } = result
-      if (result.code === 200) {
-        this.$store.commit('UPDATE_MENUPAGE_INFO', data)
+      // const result = await this.$store.dispatch('reqMenupageInfo')
+      // const { data } = result
+      this.$router.replace({ path: '/categorylist' })
+      // if (result.code === 200) {
+      //   this.$store.commit('UPDATE_MENUPAGE_INFO', data)
 
-        this.$router.replace({ path: '/categorylist' })
-      }
+      //   this.$router.replace({ path: '/categorylist' })
+      // }
     },
     toOuterLayer() {
       this.$router.go(-1)

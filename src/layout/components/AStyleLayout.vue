@@ -75,49 +75,8 @@ export default {
   data() {
     return {}
   },
-  mounted() {
-    this.attrButeList
-  },
-  methods: {
-    openAndClose(index) {
-      this.isClose = index
-      setTimeout(() => {
-        if (
-          $('.wrap')[index].scrollTop >
-          $('.configlist')[index].offsetHeight - $('.wrap')[index].clientHeight
-        ) {
-          this.isShowIcon = true
-        } else {
-          this.isShowIcon = false
-        }
-      }, 300)
-    },
-    addAttrBute(item, type) {
-      if (item.num === 0 && type === '-') return
-      if (type === '+') {
-        item.num++
-
-        this.$bus.$emit('addAndDEL', {
-          name: item.item,
-          num: item.num,
-          price: item.price
-        })
-      } else {
-        item.num--
-        this.$bus.$emit('addAndDEL', {
-          name: item.item,
-          num: item.num,
-          price: item.price
-        })
-      }
-    }
-  },
-  computed: {
-    ...mapState({ attrButeList: state => state.attrBute.attrButeList })
-  },
-  updated() {
-    console.log(this.attrButeList)
-  }
+  mounted() {},
+  methods: {}
 }
 </script>
 <style lang="less">

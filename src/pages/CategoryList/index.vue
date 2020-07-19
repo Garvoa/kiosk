@@ -28,7 +28,7 @@
               ref="leftItem"
               :class="{active1:active===index}"
               @click="isActive(index,item.name)"
-              v-for="(item,index) in  menupageList"
+              v-for="(item,index) in  menupageList || 20"
               :key="index"
               :style="item.pageCSS"
             >
@@ -53,7 +53,7 @@
                 >
                   <div
                     class="col-md-4 rightlist"
-                    v-for="(item,index) in menupage"
+                    v-for="(item,index) in menupage || 20"
                     :key="index"
                     @click="toAttriButeList(item)"
                   >

@@ -8,6 +8,7 @@
   margin-top: 20px;
   overflow: hidden;
   position: relative;
+  text-align: left;
 }
 .SelectAttributes .item .centent {
   padding: 10px 10px;
@@ -20,7 +21,7 @@
   padding: 10px 10px;
 }
 .SelectAttributes .item .wrap {
-  height: 550px;
+  max-height: 650px;
   transition: 0.3s;
   padding: 10px;
   margin-bottom: 20px;
@@ -30,24 +31,45 @@
   overflow: auto;
 }
 .SelectAttributes .item .wrap .configlist {
-  width: 100%;
-}
-.SelectAttributes .item .wrap .configlist .slide .price {
-  padding: 10px;
-}
-.SelectAttributes .item .wrap .configlist .slide .price p {
+  width: 98%;
   margin: 0;
 }
-.SelectAttributes .item .wrap .configlist .slide .price span {
+.SelectAttributes .item .wrap .configlist .slide {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.SelectAttributes .item .wrap .configlist .slide div {
+  border-radius: 10px;
+  border: 1px solid #000;
+}
+.SelectAttributes .item .wrap .configlist .slide div p {
+  margin: 0;
   padding: 10px;
+}
+.SelectAttributes .item .wrap .configlist .slide div p span {
+  font-size: 30px;
+}
+.SelectAttributes .item .wrap .configlist .slide div p .price {
+  color: red;
+  font-weight: 600;
+}
+.SelectAttributes .item .wrap .configlist .slide div p .number {
+  display: inline-block;
+  margin: 0px 10px;
+  font-size: 40px;
+}
+.SelectAttributes .item .wrap .configlist .slide div p i {
+  font-size: 40px;
 }
 .SelectAttributes .item .wrap .configlist .slide img {
   width: 100%;
+  height: 150px;
+  object-fit: cover;
 }
 .SelectAttributes .item .icon {
   position: absolute;
-  bottom: 10px;
-  right: 20px;
+  right: 0px;
+  bottom: 40%;
   font-size: 50px;
   animation: translateIcon 1s infinite;
   font-weight: 700;
@@ -70,12 +92,12 @@
 }
 @keyframes translateIcon {
   0% {
-    bottom: 20px;
+    transform: rotate(90deg) translateX(0px);
   }
   50% {
-    bottom: 0px;
+    transform: rotate(90deg) translateX(20px);
   }
   100% {
-    bottom: 20px;
+    transform: rotate(90deg) translateX(0px);
   }
 }
