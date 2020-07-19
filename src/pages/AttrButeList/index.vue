@@ -19,7 +19,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-3 price">总金额 ￥{{this.$route.query.price}}</div>
+      <div class="col-md-3 price">总金额 ￥{{this.$route.query.price+totalAmount}}</div>
     </div>
 
     <AttriButeLayout :tranlateXAttrModule="tranlateXAttrModule" />
@@ -36,7 +36,8 @@ export default {
   },
   data() {
     return {
-      attrButeDetails: []
+      attrButeDetails: [],
+      totalAmount: 0
     }
   },
   methods: {
@@ -65,23 +66,37 @@ export default {
     this.$bus.$on('addAndDEL', attrObj => {
       let flag = false
       let attrIndex
-
+      let indexs
       if (this.attrButeDetails.length > 0) {
         this.attrButeDetails.forEach((item, index) => {
           if (item.name === attrObj.name) {
             flag = true
             attrIndex = index
-          }
-          if (item.num === '*0') {
-            this.attrButeDetails.splice(index, 1)
+            if (attrObj.num === 0) {
+              console.log(index, `++++`)
+              if (this.attrButeDetails.length === 1) {
+                this.attrButeDetails = []
+              } else {
+                this.attrButeDetails.splice(index, 1)
+              }
+            }
           }
         })
       }
-      if (flag) {
+
+      // this.attrButeDetails.splice(indexs, 1)
+      if (flag && this.attrButeDetails.length > 0) {
         this.attrButeDetails[attrIndex].num = attrObj.num
       } else {
         this.attrButeDetails.push(attrObj)
       }
+      this.totalAmount = this.attrButeDetails.reduce((p, c) => {
+        p += c.num * c.price
+        // console.log(c)
+        return p
+      }, 0)
+      // console.log(totalAmount)
+      // this.totalAmount = totalAmount + this.totalAmount
     })
   }
 }

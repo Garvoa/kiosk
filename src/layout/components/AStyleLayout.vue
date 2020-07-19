@@ -99,13 +99,15 @@ export default {
 
         this.$bus.$emit('addAndDEL', {
           name: item.item,
-          num: `*${item.num}`
+          num: item.num,
+          price: item.price
         })
       } else {
         item.num--
         this.$bus.$emit('addAndDEL', {
           name: item.item,
-          num: `*${item.num}`
+          num: item.num,
+          price: item.price
         })
       }
     }
