@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="SelectAttributes">
+  <div class="SelectAttributes">
     <div
       class="item"
       :class="{active:isClose===attrIndex}"
@@ -42,8 +42,13 @@
       <div class="icon" :class="{isShow:isShowIcon,close:isClose!==attrIndex}">
         <i class="el-icon-d-arrow-right"></i>
       </div>
-  </div>-->
-  <!-- <div class="item" :class="{active:isClose===1}">
+    </div>
+    <div class="determine">
+      <el-button type="danger" round @click="signOut">退出</el-button>
+      <el-button type="success" round @click="toOrderdetails">确定</el-button>
+    </div>
+    <AttributeModule ref="AttributeModule" />
+    <!-- <div class="item" :class="{active:isClose===1}">
       <div class="centent">
         <span class="attributeName">配汽水</span>
         <span class="severalItems">请选择1项</span>
@@ -67,7 +72,7 @@
       <div class="icon" :class="{isShow:isShowIcon,close:isClose!==1}">
         <i class="el-icon-d-arrow-right"></i>
       </div>
-  </div>-->
+  </div>
   <foldAttriBute>
     <template slot="centent" slot-scope="{attrBute}">
       <span class="attributeName">{{attrBute.name}}</span>
@@ -111,20 +116,22 @@
     <template slot="AttributeModule">
       <AttributeModule ref="AttributeModule" />
     </template>
-  </foldAttriBute>
-
-  <!-- </div> -->
+    </foldAttriBute>-->
+  </div>
 </template>
 <script>
-import foldAttriBute from './foldAttriBute'
+// import foldAttriBute from './foldAttriBute'
+
 import LayoutMixin from '../mixin'
 import AttributeModule from './AttributeModule/AttributeModule'
 import '../css/layout.less'
 import { mapState } from 'vuex'
 export default {
   // name: 'astyleLayout',
-  components: { AttributeModule, foldAttriBute },
+  components: { AttributeModule },
+  // props: { totalAmount, attrButeDetails },
   mixins: [LayoutMixin],
+  props: { attrButeDetails: Array },
   data() {
     return {}
   },
@@ -132,6 +139,42 @@ export default {
   methods: {
     openAttributeModule() {
       this.$refs.AttributeModule.isShowAttributeInner(1)
+    },
+    signOut() {
+      console.log(1)
+      this.$router.go(-1)
+    },
+    toOrderdetails() {
+      console.log(this.$store.state.attrBute.isAdd)
+      if (this.$store.state.attrBute.isAdd) {
+        this.$store.commit(
+          'UPDATE_ATTRBUTEDETALSLIST',
+          JSON.parse(window.localStorage.getItem('attrButeDetailsList'))
+        )
+      } else {
+        console.log(
+          JSON.parse(window.localStorage.getItem('attrButeDetailsList'))
+        )
+        this.$store.commit(
+          'MODIFYATTRBUTEDETALSITEM',
+          JSON.parse(window.localStorage.getItem('attrButeDetailsList'))
+        )
+      }
+
+      this.$router.replace({
+        path: '/categoryList'
+        // query: {
+        //   totalAmount: this.totalAmount + this.$route.query.price,
+        //   attrButeDetails: this.attrButeDetails
+        // }
+      })
+      //   this.$store.commit('UPDATE_ATTRBUTEDETALSLIST', {
+      //     totalAmount: this.totalAmount + this.$route.query.price,
+      //     attrButeDetails: this.attrButeDetails
+      //   })
+      //   this.$router.replace({
+      //     path: '/categoryList'
+      //   })
     }
   }
 }

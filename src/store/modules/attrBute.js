@@ -2,29 +2,31 @@ import { getMenumodInfo } from "../../api"
 
 const state = {
   attrButeList: [],
-  // attrButeDetails: []
+  // attrButeDetails: [],
+  isAdd: true
 }
 const mutations = {
   UPDATE_MENUMOND_ONFO(state, data) {
     state.attrButeList = data
   },
+  // GETATTRBUTEDETAILSLIST(state, data) {
+  //   state.attrButeList=  state.attrButeList.map((item)=>{
+  //     return 
+  //   })
+  // }
   // ADD_ATTRBUTE_NUMBER(state, attrAbj) {
 
   //   state.attrButeDetails.push(attrAbj)
   // }
 }
 const actions = {
-  async reqMenumodInfo({ commit }) {
-    const result = await getMenumodInfo()
-    if (result.code === 200) {
-      commit('UPDATE_MENUMOND_ONFO', result.data)
-    }
+  reqMenumodInfo({ commit }, data) {
+    return getMenumodInfo(data)
+
   }
 }
 const getters = {
-  // getattrButeDetails(state) {
-  //   return state.attrButeDetails
-  // }
+
 }
 
 

@@ -4,12 +4,15 @@ export default {
     return {
       isClose: 0,
       isShowIcon: false,
-      iconIndex: ''
+      iconIndex: '',
+      // attrButeList: []
     }
   },
   mounted() {
     this.addEventIcon()
-
+    // const {}=this.$route.query.item
+    // this.attrButeList = this.$store.commit('GETATTRBUTEDETAILSLIST',)
+    // console.log(this.attrButeList)
   },
   methods: {
 

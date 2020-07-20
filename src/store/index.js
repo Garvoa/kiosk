@@ -16,6 +16,7 @@ const store = new Vuex.Store({
       state.isLoading = boolean
     },
     switchFrames(state, objFrames) {
+      console.log(objFrames)
       state.objFrames = objFrames
     }
     // switchLang(state, { lang, _self }) {

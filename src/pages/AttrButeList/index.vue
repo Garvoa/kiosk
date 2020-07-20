@@ -11,7 +11,7 @@
           />
         </div>
         <div class="col-md-7 foodName">
-          <p>{{this.$route.query.name}}</p>
+          <p>{{$route.query.item?$route.query.item.mainFood:$route.query.name}}</p>
           <!-- <el-button>特别要求</el-button> -->
           <ul>
             <li v-for="(item,index) in attrButeDetails" :key="index">
@@ -20,14 +20,14 @@
             </li>
           </ul>
         </div>
-        <div
-          class="col-md-3 price"
-          style="font-size:30px"
-        >总金额 ￥{{this.$route.query.price||40+totalAmount}}</div>
+        <div class="col-md-3 price" style="font-size:30px">
+          总金额 ￥{{$route.query.item
+          ? $route.query.item.totalAmount+totalAmount:$route.query.price+totalAmount}}
+        </div>
       </div>
     </div>
 
-    <AttriButeLayout />
+    <AttriButeLayout :attrButeDetails="attrButeDetails" />
   </div>
 </template>
 
@@ -41,16 +41,25 @@ export default {
   },
   data() {
     return {
-      attrButeDetails: [],
-      totalAmount: 0
+      totalAmount: 0,
+      attrButeDetails: []
     }
   },
-  methods: {},
+  methods: {
+    reset() {
+      this.totalAmount = 0
+      this.attrButeDetails = []
+    }
+  },
   //生命周期 - 创建完成（访问当前this实例）
-  created() {},
+  created() {
+    this.attrButeDetails = this.$route.query.item
+      ? this.$route.query.item.attrButeDetails
+      : []
+  },
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {
-    this.$store.dispatch('reqMenumodInfo')
+    // this.$store.dispatch('reqMenumodInfo')
     this.$bus.$on('addAndDEL', attrObj => {
       let flag = false
       let attrIndex
@@ -72,8 +81,59 @@ export default {
         price += item.num * item.price
         return item.num !== 0
       })
+
       this.totalAmount = price
+      if (this.$store.state.attrBute.isAdd) {
+        window.localStorage.setItem(
+          'attrButeDetailsList',
+          JSON.stringify({
+            totalAmount: this.totalAmount + this.$route.query.price,
+            attrButeDetails: this.attrButeDetails,
+            mainFood: this.$route.query.name,
+            mainFoodPrice: this.$route.query.price,
+            num: 1,
+            id: parseInt(Date.now() / 20202020)
+          })
+        )
+      } else {
+        window.localStorage.setItem(
+          'attrButeDetailsList',
+          JSON.stringify({
+            totalAmount: this.totalAmount + this.$route.query.item.totalAmount,
+            attrButeDetails: this.attrButeDetails,
+            mainFood: this.$route.query.item.mainFood,
+            mainFoodPrice: this.$route.query.item.mainFoodPrice,
+            num: this.$route.query.item.num,
+            id: this.$route.query.item.id
+          })
+        )
+      }
     })
+    console.log(this.$store.state.attrBute.isAdd)
+    if (this.$store.state.attrBute.isAdd) {
+      window.localStorage.setItem(
+        'attrButeDetailsList',
+        JSON.stringify({
+          totalAmount: this.totalAmount + this.$route.query.price,
+          attrButeDetails: this.attrButeDetails,
+          mainFood: this.$route.query.name,
+          mainFoodPrice: this.$route.query.price,
+          num: 1,
+          id: ''
+        })
+      )
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    if (from.path === '/orderdetails') {
+      next(vm => {
+        vm.$store.state.attrBute.isAdd = false
+      })
+    } else {
+      next(vm => {
+        vm.$store.state.attrBute.isAdd = true
+      })
+    }
   }
 }
 </script>

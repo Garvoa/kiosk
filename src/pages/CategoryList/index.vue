@@ -9,7 +9,8 @@
         round
         data-toggle="modal"
         data-target="#myModal"
-        @click="$switchFrames('重新點單')"
+        @click=" $switchFrames({text:`重新點餐`,fn:orderAgain}) "
+        :disabled="totalPrice>0?false:true"
       >
         <i class="iconfont icon-zhongxin"></i> 重新點單
       </el-button>
@@ -30,12 +31,9 @@
               @click="isActive(index,item.name)"
               v-for="(item,index) in  menupageList || 20"
               :key="index"
-              :style="item.pageCSS"
+              :style="item.objectCSS"
             >
-              <img
-                src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=185888452,394183420&fm=26&gp=0.jpg"
-                alt
-              />
+              <img src="../../img/u=185888452,394183420&fm=26&gp=0.jpg" alt />
               <p>{{item.name}}</p>
             </li>
           </ul>
@@ -58,10 +56,7 @@
                     @click="toAttriButeList(item)"
                   >
                     <div class="item">
-                      <img
-                        src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=185888452,394183420&fm=26&gp=0.jpg"
-                        alt
-                      />
+                      <img src="../../img/u=185888452,394183420&fm=26&gp=0.jpg" alt />
                       <p>
                         <span>{{item.name===""?111:item.name}}</span>
                         <span style="display:block">￥{{item.menuitem?item.menuitem.price1:'111'}}</span>
@@ -76,52 +71,8 @@
       </div>
     </section>
     <!-- 购物车订单 -->
-    <div class="myorder">
-      <div class="myorderhead">我的订单（堂食）</div>
 
-      <!-- <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>菜品</th>
-              <th>数量</th>
-              <th>价格</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Tanmay</td>
-              <td>Bangalore</td>
-              <td>111</td>
-            </tr>
-            <tr>
-              <td>Sachin</td>
-              <td>Mumbai</td>
-              <td>111</td>
-            </tr>
-          </tbody>
-      </table>-->
-      <div class="row centent">
-        <div class="col-md-4">订单内容</div>
-        <div class="col-md-4">0件</div>
-        <div class="col-md-4">￥0.00</div>
-      </div>
-
-      <div class="leaveAndOk">
-        <el-button type="warning" round>
-          <i class="iconfont icon-icon-"></i> 确定订单
-        </el-button>
-        <el-button
-          round
-          class="reelection btn btn-primary btn-lg show-modal leave"
-          type="danger"
-          data-toggle="modal"
-          data-target="#myModal"
-          @click="$switchFrames({text:'离开',fn:leaveCategoryList})"
-        >
-          <i class="iconfont icon-icon-test"></i> 离开
-        </el-button>
-      </div>
-    </div>
+    <Myorder :leaveCategoryList="leaveCategoryList" />
     <!-- 模态框 -->
     <StateFrames />
   </div>
@@ -129,10 +80,11 @@
 <script>
 import IScroll from 'iscroll/build/iscroll-probe'
 import Rotation from '../../components/Rotation'
+import Myorder from '../../components/Myorder'
 import { mapState, mapGetters } from 'vuex'
 
 export default {
-  components: { Rotation },
+  components: { Rotation, Myorder },
   name: 'categoryList',
   data() {
     return {
@@ -156,10 +108,10 @@ export default {
     //   // $('p')[0].style.fontSize = 25 + 'px'
     // }
     // console.log($('p')[0].css('fontSize'))
-    console.log(
-      this.$refs.leftItem[0].offsetHeight,
-      this.$refs.leftItem[0].offsetHeight
-    )
+    // console.log(
+    //   this.$refs.leftItem[0].offsetHeight,
+    //   this.$refs.leftItem[0].offsetHeight
+    // )
     //滚动条
   },
   activated() {
@@ -190,7 +142,7 @@ export default {
     },
     //切换菜品列表
     isActive(index, name) {
-      if (!this.iscrollRight) return
+      // if (!this.iscrollRight) return
       this.scrollFlag = true
       let offsetTop = -this.$refs[`item${index}`][0].offsetTop
       this.iscrollRight.$offsetTop = offsetTop
@@ -199,16 +151,32 @@ export default {
       this.leftScroll(index)
       this.active = index
       this.name = name
+      console.log(offsetTop)
+    },
+    orderAgain() {
+      this.$store.commit('DELETEATTRBUTEDETALSLIST')
     },
 
     //路由跳转
     toAttriButeList(item) {
-      this.$store.dispatch('reqMenumodInfo')
-
-      this.$router.push({
-        path: '/attributelist',
-        query: { name: item.name, price: item.menuitem.price1 }
-      })
+      console.log(item)
+      const { itemid, menuitem } = item
+      this.$store
+        .dispatch('reqMenumodInfo', {
+          itemid,
+          isselfmodifier: menuitem.isselfmodifier,
+          familyid: menuitem.familyid
+        })
+        .then(result => {
+          // console.log(result)
+          if (result.code === 200) {
+            this.$store.commit('UPDATE_MENUMOND_ONFO', result.data)
+          }
+          this.$router.push({
+            path: '/attributelist',
+            query: { name: item.name, price: item.menuitem.price1 }
+          })
+        })
     },
     // async getMenupageInfo() {
     //   const result = await this.$store.dispatch('reqMenupageInfo')
@@ -240,8 +208,10 @@ export default {
     }
   },
   computed: {
-    ...mapState({ menupageList: state => state.categoryList.menupageList }),
-    ...mapGetters(['menupageListRight'])
+    ...mapState({
+      menupageList: state => state.categoryList.menupageList
+    }),
+    ...mapGetters(['menupageListRight', 'totalPrice'])
   },
   watch: {
     menupageList: {
@@ -251,7 +221,7 @@ export default {
             mouseWheel: true,
             scrollbars: 'custom',
             scrollY: true,
-            interactiveScrollbars: true,
+
             startY: 0
           })
         })
@@ -350,7 +320,7 @@ export default {
 }
 .categoryheader {
   position: relative;
-  background-color: #e6a23c;
+  background-color: #708090;
 
   box-sizing: content-box;
   display: flex;
@@ -425,6 +395,12 @@ section {
           width: 100%;
           min-height: 100%;
           position: relative;
+          img {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            object-fit: cover;
+          }
           &::after {
             content: '';
             position: absolute;

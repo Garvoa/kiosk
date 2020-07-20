@@ -71,14 +71,14 @@ export default {
   mounted() {},
   methods: {
     async toCategoryList() {
-      // const result = await this.$store.dispatch('reqMenupageInfo')
-      // const { data } = result
-      this.$router.replace({ path: '/categorylist' })
-      // if (result.code === 200) {
-      //   this.$store.commit('UPDATE_MENUPAGE_INFO', data)
+      const result = await this.$store.dispatch('reqMenupageInfo')
+      const { data } = result
 
-      //   this.$router.replace({ path: '/categorylist' })
-      // }
+      if (result.code === 200) {
+        this.$store.commit('UPDATE_MENUPAGE_INFO', data)
+
+        this.$router.replace({ path: '/categorylist' })
+      }
     },
     toOuterLayer() {
       this.$router.go(-1)
@@ -104,13 +104,14 @@ export default {
     flex-direction: column;
 
     align-items: center;
+    p {
+      text-align: center;
+      padding: 100px;
+      // flex: 1;
+      font-size: 50px;
+    }
   }
-  p {
-    text-align: center;
-    padding: 100px;
-    // flex: 1;
-    font-size: 50px;
-  }
+
   .modal-box {
     // display: flex;
     text-align: center;

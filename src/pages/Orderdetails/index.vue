@@ -1,36 +1,50 @@
 <template>
   <div class="orderDetailsOuter">
     <div class="again">
-      <el-button type="danger" round>重新点餐</el-button>
+      <el-button
+        type="danger"
+        round
+        class="btn btn-lg show-modal leave"
+        data-toggle="modal"
+        data-target="#myModal"
+        @click=" $switchFrames({text:`重新點餐`,fn:orderAgain}) "
+      >重新点餐</el-button>
     </div>
     <div class="orderdetailsContent">
       <div class="row contentTitle">
-        <div class="col-md-7">已选项目</div>
+        <div class="col-md-7" style="text-align:left;padding-left:30px">已选项目</div>
         <div class="col-md-3">数量</div>
         <div class="col-md-2 price">金额</div>
       </div>
-      <div class="setmealType">中式套餐</div>
+      <!-- <div class="setmealType">中式套餐</div> -->
       <ul class="orderDetailsList">
-        <li class="orderDetailsItem">
-          <div class="col-md-6 itemLeft">
-            <i>11</i>
+        <li class="orderDetailsItem" v-for="(item,index) in attrButeDetailsList" :key="index">
+          <div class="col-md-7 itemLeft">
+            <i
+              @click=" $switchFrames({text:`刪除`,fn:removeItem(item)}) "
+              class="btn btn-lg show-modal leave el-icon-delete-solid"
+              data-toggle="modal"
+              data-target="#myModal"
+            ></i>
             <div>
-              <h2>鸳鸯双扒饭</h2>
-              <p>-黑椒汁</p>
-              <p>
-                -配可口可乐
-                <span>多冰</span>
+              <h2 style="margin:0">{{item.mainFood}} ￥{{item.mainFoodPrice}}</h2>
+              <p v-for="(attrBute,index) in item.attrButeDetails" :key="index" class="attrButeMsg">
+                {{attrBute.name}}
+                <span>*{{attrBute.num}}</span>
+                <span>{{attrBute.price}}</span>
+                <el-button type="warning" @click="modifyAttriBute(item)">修改</el-button>
               </p>
             </div>
           </div>
-          <div class="col-md-4">
-            <el-button>修改</el-button>
-            <i>+</i>
-            <span>1</span>
-            <i>-</i>
+
+          <div class="col-md-3 num">
+            <i class="el-icon-remove" @click="plusAndRemove('-',item)"></i>
+
+            <span>{{item.num}}</span>
+            <i class="el-icon-circle-plus" @click="plusAndRemove('+',item)"></i>
           </div>
-          <div class="col-md-2">
-            <span>￥29.00</span>
+          <div class="col-md-2 price">
+            <span>￥{{item.totalAmount}}</span>
           </div>
           <p class="line"></p>
         </li>
@@ -64,14 +78,57 @@
       </ul>
     </div>
     <Myorder class="myorder" />
+    <StateFrames />
   </div>
 </template>
 <script>
 import Myorder from '../../components/Myorder'
+import { mapState } from 'vuex'
+import StateFrames from '../../components/StateFrames'
 export default {
   components: { Myorder },
   mounted() {},
-  methods: {}
+  methods: {
+    plusAndRemove(type, item) {
+      let total = item.totalAmount
+      if (item.num !== 1) {
+        total = item.totalAmount / item.num
+      }
+      if (type === '+') {
+        item.num++
+
+        item.totalAmount = total * item.num
+      } else if (item.num > 1) {
+        item.num--
+
+        item.totalAmount = total * item.num
+      }
+    },
+    removeItem(AttriButeItem) {
+      return () => {
+        this.$store.commit('DELETEATTRBUTEDETALSITEM', AttriButeItem)
+      }
+    },
+    orderAgain() {
+      this.$store.commit('DELETEATTRBUTEDETALSLIST')
+    },
+    modifyAttriBute(item) {
+      console.log(item)
+      this.$router.replace({ path: '/attributelist', query: { item } })
+    }
+  },
+  computed: {
+    ...mapState({
+      attrButeDetailsList: state => state.categoryList.attrButeDetailsList
+    })
+  },
+  watch: {
+    attrButeDetailsList(val) {
+      if (val.length === 0) {
+        this.$router.replace({ path: '/categorylist' })
+      }
+    }
+  }
 }
 </script>
 <style lang="less" >
@@ -105,9 +162,12 @@ export default {
       background-color: coral;
       border-radius: 10px;
       padding: 5px;
-      min-width: 1024px;
+      // min-width: 1024px;
       box-sizing: border-box;
       margin: 0px 0px 10px 0px;
+      div {
+        text-align: center;
+      }
     }
     .row {
       div {
@@ -126,10 +186,37 @@ export default {
       .orderDetailsItem {
         overflow: hidden;
         position: relative;
+        padding: 10px;
         .itemLeft {
           display: flex;
           i {
+            font-size: 30px;
             margin: 20px 10px;
+          }
+          .attrButeMsg {
+            width: 100%;
+            font-size: 20px;
+            margin-top: 10px;
+            span {
+              display: inline-block;
+              margin: 0px 10px;
+            }
+          }
+        }
+
+        .price {
+          text-align: center;
+          font-size: 30px;
+        }
+        .num {
+          text-align: center;
+          i {
+            font-size: 30px;
+          }
+          span {
+            font-size: 30px;
+            display: inline-block;
+            margin: 0px 10px;
           }
         }
         .line {

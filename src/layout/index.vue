@@ -3,8 +3,8 @@
     <div class="da">
       <el-button class="qq" type="danger" @click="is=!is">切换风格</el-button>
     </div>
-    <AStyleLayout v-if="!is" />
-    <BStyleLaout v-else :tranlateXAttrModule="tranlateXAttrModule" />
+    <AStyleLayout v-if="!is" :attrButeDetails="attrButeDetails" />
+    <BStyleLaout v-else />
   </div>
 </template>
 <script>
@@ -13,9 +13,7 @@ import BStyleLaout from './components/BStyleLaout'
 
 export default {
   components: { AStyleLayout, BStyleLaout },
-  props: {
-    tranlateXAttrModule: Function
-  },
+  props: { attrButeDetails: Array },
   data() {
     return {
       is: true

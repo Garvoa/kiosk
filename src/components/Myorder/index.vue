@@ -25,24 +25,55 @@
     </table>-->
     <div class="row centent">
       <div class="col-md-4">订单内容</div>
-      <div class="col-md-4">0件</div>
-      <div class="col-md-4">￥0.00</div>
+      <div class="col-md-4">{{attrButeDetailsList.length}}件</div>
+      <div class="col-md-4">￥{{totalPrice}}</div>
     </div>
 
     <div class="leaveAndOk">
-      <el-button type="warning" @click="payAndOrderdetails" round>确定订单</el-button>
-      <el-button type="danger" round>离开</el-button>
+      <el-button type="warning" round @click="toRoute" :disabled="totalPrice>0?false:true">
+        <i class="iconfont icon-icon-"></i>
+        {{$route.path==="/orderdetails"?'去付款':"确定订单"}}
+      </el-button>
+      <el-button
+        round
+        class="reelection btn btn-primary btn-lg show-modal leave"
+        type="danger"
+        data-toggle="modal"
+        data-target="#myModal"
+        @click="$switchFrames({text:'离开',fn:leaveCategoryList})"
+      >
+        <i class="iconfont icon-icon-test"></i> 离开
+      </el-button>
     </div>
   </div>
 </template>
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
   components: {},
+
   mounted() {},
   methods: {
     payAndOrderdetails() {
       this.$router.push({ path: '/pay' })
+    },
+    toRoute() {
+      if (this.totalPrice > 0) {
+        this.$router.push({ path: '/orderdetails' })
+      } else {
+        this.$switchFrames({ text: '请选择菜品', fn: () => {} })
+      }
+    },
+    leaveCategoryList() {
+      this.$router.go(-1)
+      // this.$router.replace({ path: '/home' })
     }
+  },
+  computed: {
+    ...mapState({
+      attrButeDetailsList: state => state.categoryList.attrButeDetailsList
+    }),
+    ...mapGetters(['totalPrice'])
   }
 }
 </script>
@@ -57,7 +88,7 @@ export default {
     width: 100%;
     text-align: center;
 
-    height: 20%;
+    // height: 20%;
     padding: 10px;
     background-color: chocolate;
   }
@@ -74,11 +105,11 @@ export default {
   }
   .leaveAndOk {
     width: 100%;
-    height: 20%;
+    // height: 20%;
     button {
       width: 35%;
-      height: 100%;
-      font-size: 30px;
+
+      font-size: 40px;
       margin: 0;
       &:nth-last-child(2) {
         float: right;

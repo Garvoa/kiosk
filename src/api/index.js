@@ -13,10 +13,4 @@ export const getMenupageInfo = () => ajax.get('/API/menupage/getInfo')
 //獲取菜單選項詳細信息
 
 
-export const getMenumodInfo = (query) => mockAjax({
-  url: `/API/menumod/query`,
-  method: 'get',
-
-
-
-})
+export const getMenumodInfo = (data) => ajax.post(`/API/menumod/query`, data)
