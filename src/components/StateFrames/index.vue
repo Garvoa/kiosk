@@ -24,11 +24,7 @@
                     <h3 class="title">提示!</h3>
                     <p class="description">您确定要{{$store.state.objFrames.text}}吗？</p>
                     <div class="signout">
-                      <button
-                        class="subscribe"
-                        data-dismiss="modal"
-                        @click="$store.state.objFrames.fn"
-                      >确定</button>
+                      <button class="subscribe" data-dismiss="modal" @click="toRoute">确定</button>
                       <button class="subscribe" data-dismiss="modal">取消</button>
                     </div>
                   </div>
@@ -44,10 +40,12 @@
 <script>
 export default {
   components: {},
-  mounted() {
-    console.log(this.$store)
-  },
-  methods: {}
+  mounted() {},
+  methods: {
+    toRoute() {
+      this.$store.state.objFrames.fn()
+    }
+  }
 }
 </script>
 <style lang="less">

@@ -6,10 +6,10 @@
     <section>
       <p>請選擇堂食或者外帶</p>
       <div class="choice">
-        <el-button type="warning" @click="toCategoryList">
+        <el-button type="warning" @click="toCategoryList('堂食')">
           <i class="iconfont icon-tangshi"></i> 堂食
         </el-button>
-        <el-button type="warning" @click="toCategoryList">
+        <el-button type="warning" @click="toCategoryList('外帶')">
           <i class="iconfont icon-waidai"></i> 外帶
         </el-button>
       </div>
@@ -70,19 +70,26 @@ export default {
   components: {},
   mounted() {},
   methods: {
-    async toCategoryList() {
+    //跳转至主菜页
+    async toCategoryList(type) {
       const result = await this.$store.dispatch('reqMenupageInfo')
       const { data } = result
 
       if (result.code === 200) {
-        this.$store.commit('UPDATE_MENUPAGE_INFO', data)
+        const datas = data.filter((item, index) => {
+          return index < 8
+        })
+        console.log(datas)
+        this.$store.commit('UPDATE_MENUPAGE_INFO', datas)
 
-        this.$router.replace({ path: '/categorylist' })
+        this.$router.replace({
+          path: '/categorylist',
+          query: { type }
+        })
       }
     },
     toOuterLayer() {
       this.$router.go(-1)
-      // this.$router.replace({ path: '/' })
     }
   }
 }

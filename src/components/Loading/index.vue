@@ -15,6 +15,10 @@ export default {
 </script>
 <style lang="less">
 #loading {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 100;
   img {
     position: absolute;
     left: 0;
@@ -22,6 +26,10 @@ export default {
     top: 0;
     bottom: 0;
     margin: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(0.8);
   }
 }
 </style>

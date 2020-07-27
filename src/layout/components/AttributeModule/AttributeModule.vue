@@ -83,8 +83,8 @@
         </template>
       </foldAttriBute>
       <div class="attributeBtn">
-        <el-button type="success" @click="isShowAttributeInner">确定</el-button>
-        <el-button type="danger" @click="isShowAttributeInner">取消</el-button>
+        <el-button type="success" @click="closeAttributeInner">确定</el-button>
+        <el-button type="danger" @click="closeAttributeInner">取消</el-button>
       </div>
     </div>
   </div>
@@ -102,7 +102,8 @@ export default {
       activeName: 'second',
       tags: [{ name: 'duobing', type: 'success' }],
       isactive: 0,
-      attributeName: '溫度'
+      attributeName: '溫度',
+      AttributeItem: {}
     }
   },
 
@@ -131,18 +132,41 @@ export default {
         this.tags.push({ name, type: 'success' })
       }
     },
-    isShowAttributeInner(index) {
-      if (index === 1) {
-        this.$refs.attributeOuter.style.display = 'block'
-        setTimeout(() => {
-          this.$refs.attributeInner.style.transform = 'scale(1)'
-        }, 0)
+    closeAttributeInner() {
+      setTimeout(() => {
+        this.$refs.attributeOuter.style.display = 'none'
+      }, 300)
+      this.$refs.attributeInner.style.transform = 'scale(0)'
+    },
+    isShowAttributeInner(item) {
+      if (item.moditem && item.moditem.menuitem) {
+        this.AttributeItem = item
       } else {
-        setTimeout(() => {
-          this.$refs.attributeOuter.style.display = 'none'
-        }, 300)
-        this.$refs.attributeInner.style.transform = 'scale(0)'
+        return
       }
+      const { itemid, isselfmodifier, familyid } = item.moditem.menuitem
+      console.log(itemid, isselfmodifier, familyid, item.moditem)
+      this.$store
+        .dispatch('reqMenumodInfo', {
+          itemid,
+          isselfmodifier,
+          familyid
+        })
+        .then(result => {
+          // console.log(result)
+          if (result.code === 200) {
+            console.log(result.data)
+            this.$store.commit('UPDATE_MENUMOND_ONFO', result.data)
+          }
+          this.$router.push({
+            path: '/attributelist',
+            query: { name: item.name, price: item.menuitem.price1 }
+          })
+        })
+      this.$refs.attributeOuter.style.display = 'block'
+      setTimeout(() => {
+        this.$refs.attributeInner.style.transform = 'scale(1)'
+      }, 0)
     }
   }
 }

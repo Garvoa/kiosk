@@ -14,3 +14,10 @@ export const getMenupageInfo = () => ajax.get('/API/menupage/getInfo')
 
 
 export const getMenumodInfo = (data) => ajax.post(`/API/menumod/query`, data)
+// export const getMenumodInfo = (data) => mockAjax.get(`/API/menumod/query`)
+
+export const getPay = (data) => ajax.post('/API/order/insertOrder', data)
+
+export const getPayType = () => ajax.get('/API/paypage/list')
+export const getPayOrder = (data) => ajax.post('/API/order/payOrder', data)
+

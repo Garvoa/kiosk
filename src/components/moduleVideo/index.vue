@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-  props: { toHome: Function },
+  props: { isRotation: Boolean },
   name: 'video_1',
   data() {
     return {
@@ -15,9 +15,7 @@ export default {
     }
   },
   components: {},
-  mounted() {
-    this.videoFn()
-  },
+  mounted() {},
   methods: {
     videoFn() {
       videojs('video_1', {
@@ -52,8 +50,15 @@ export default {
     }
   },
   watch: {
-    $route(to) {
-      console.log(to)
+    isRotation: {
+      handler() {
+        if (!this.isRotation) {
+          this.$nextTick(() => {
+            this.videoFn()
+          })
+        }
+      },
+      immediate: true
     }
   }
 }

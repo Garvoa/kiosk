@@ -16,14 +16,19 @@ Vue.prototype.$moment = moment
 Vue.prototype.$moment.locale('zh-cn')
 Vue.use(ElementUI)
 Vue.config.productionTip = false
-// import loading from './assets/timg.gif'
+//懒加载
+import loading from './img/20200722180118.gif'
 Vue.use(VueLazyload, {
-  // loading
+  loading
 })
 Vue.prototype.$bus = new Vue()
+
+//全局组件
 Vue.component('Loading', Loading)
 Vue.component('Rotation', Rotation)
 Vue.component('StateFrames', StateFrames)
+
+// 设置全局方法
 Vue.prototype.$switchFrames = function (objFrames) {
   store.commit('switchFrames', objFrames)
 }

@@ -1,14 +1,8 @@
 <template>
   <div class="swiper-container swiper-no-swiping">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="http://img4.imgtn.bdimg.com/it/u=2066513574,2920282611&fm=214&gp=0.jpg" alt />
-      </div>
-      <div class="swiper-slide">
-        <img src="http://pic1.win4000.com/wallpaper/5/579f1161ee654.jpg" alt />
-      </div>
-      <div class="swiper-slide">
-        <img src="http://img9.51tietu.net/pic/2019-091013/jlq4olwz5efjlq4olwz5ef.jpg" alt />
+      <div class="swiper-slide" v-for="(item,index) in bannerList" :key="index">
+        <img v-lazy="item.fileUrl" alt />
       </div>
     </div>
     <!-- 如果需要分页器 -->
@@ -26,15 +20,15 @@
 
 <script>
 import Swiper from 'swiper'
+import { mapState } from 'vuex'
 // import 'swiper/css/swiper.css'
 export default {
+  props: { isRotation: Boolean },
   data() {
     return {}
   },
   mounted() {
-    this.$nextTick(() => {
-      this.swiperInit()
-    })
+    this.$store.dispatch('reqBannerList')
   },
   methods: {
     swiperInit() {
@@ -42,7 +36,7 @@ export default {
         direction: 'horizontal', // 垂直切换选项
         loop: true, // 循环模式选项
         autoplay: {
-          delay: 2000,
+          delay: 4000,
           stopOnLastSlide: false,
           disableOnInteraction: false
         },
@@ -67,6 +61,19 @@ export default {
         // }
       })
     }
+  },
+  watch: {
+    bannerList: {
+      handler() {
+        this.$nextTick(() => {
+          this.swiperInit()
+        })
+      },
+      immediate: true
+    }
+  },
+  computed: {
+    ...mapState({ bannerList: state => state.outerLayer.bannerList })
   }
 }
 </script>

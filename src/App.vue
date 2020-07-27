@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <transition :name="transitionName" mode="out-in">
-      <keep-alive :include="keepAlive" exclude="categoryList,attributelist">
-        <router-view class="Router"></router-view>
-      </keep-alive>
-    </transition>
+  <div class="appWrap">
+    <!-- <transition :name="transitionName" mode="out-in"> -->
+    <router-view class="Router"></router-view>
+    <!-- </transition> -->
     <Loading v-show="isLoading" />
   </div>
 </template>
@@ -36,19 +34,15 @@ export default {
   computed: {
     ...mapState({ isLoading: state => state.isLoading })
   },
-  mounted() {
-    // let params = {
-    //   itemid: 1001,
-    //   isselfmodifier: 0,
-    //   familyid: 1
-    // }
-    // console.log(JSON.stringify(params))
-    // console.log(getMenumodInfo(params))
-  }
+  mounted() {}
 }
 </script>
 
 <style lang="less">
+.appWrap {
+  width: 100%;
+  height: 100%;
+}
 .Router {
   min-width: 1024px;
   transition: all 0.2888s ease;
@@ -57,6 +51,8 @@ export default {
   bottom: 0;
   width: 100%;
   margin: 0 auto;
+
+  // background-color: #87cefa;
   // overflow: hidden;
 }
 .slide-left-enter,

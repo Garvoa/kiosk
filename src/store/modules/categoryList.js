@@ -35,9 +35,6 @@ const mutations = {
 const actions = {
   reqMenupageInfo({ commit }) {
     return getMenupageInfo()
-    // if (result.code === 200) {
-    //   commit('UPDATE_MENUPAGE_INFO', result.data)
-    // }
   }
 }
 const getters = {
@@ -46,8 +43,6 @@ const getters = {
       return item.pagedetails
     })
     return a
-
-    // return state.menupageList ? state.menupageList
   },
   totalPrice(state) {
     return state.attrButeDetailsList.reduce((p, c) => {

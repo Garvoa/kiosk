@@ -1,25 +1,24 @@
 
 <template>
-  <div @click="toHome">
+  <div>
     <header>
-      <img
-        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594990138492&di=0f5670d1a42616214ea1f7f30905c5ec&imgtype=0&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D2892372298%2C3590958393%26fm%3D214%26gp%3D0.jpg"
-        alt
-      />
+      <img src="../../img/logo.png" alt />
     </header>
     <section>
-      <!-- <Rotation /> -->
-      <moduleVideo ref="moduleVideo" :toHome="toHome" />
+      <Rotation v-if="isRotation" :isRotation="isRotation" />
+      <moduleVideo ref="moduleVideo" :isRotation="isRotation" v-else />
     </section>
     <footer>
       <el-button type="success" class="startcat">
         <i class="iconfont icon-diancan"></i> 開始點餐
       </el-button>
-      <el-button class="switchlang" type="warning" @click="switchlang">
-        <i class="iconfont icon-world"></i> 中文
-      </el-button>
     </footer>
-    <div class="mask"></div>
+    <el-button class="switchlang" type="warning" @click="switchlang">
+      <i class="iconfont icon-world"></i> 中文
+    </el-button>
+    <div class="mask" @click="toHome"></div>
+
+    <!-- <el-button class="isRotation" @click="isRotationaa">切换</el-button> -->
   </div>
 </template>
 <script>
@@ -28,6 +27,11 @@ import moduleVideo from '../../components/moduleVideo'
 export default {
   name: 'outerLayer',
   components: { Rotation, moduleVideo },
+  data() {
+    return {
+      isRotation: true
+    }
+  },
   mounted() {},
   methods: {
     toHome(e) {
@@ -35,13 +39,16 @@ export default {
     },
     switchlang(e) {
       e.stopPropagation()
+    },
+    isRotationaa() {
+      this.isRotation = !this.isRotation
     }
   },
   activated() {
-    this.$refs.moduleVideo.play()
+    this.$refs.moduleVideo && this.$refs.moduleVideo.play()
   },
   deactivated() {
-    this.$refs.moduleVideo.pause()
+    this.$refs.moduleVideo && this.$refs.moduleVideo.pause()
   }
 }
 </script>
@@ -56,22 +63,25 @@ export default {
   height: 100%;
   top: 0px;
   left: 0px;
+  z-index: 10;
 }
 header {
-  height: 20%;
+  // height: 20%;
   box-sizing: border-box;
+  // margin: 30px 0px;
+  padding: 50px;
   img {
     width: 100%;
-    height: 100%;
+
     object-fit: cover;
   }
 }
 section {
-  height: 56%;
+  height: 63%;
   position: relative;
 }
 footer {
-  height: 24%;
+  height: 20%;
   text-align: center;
   box-sizing: border-box;
 
@@ -85,25 +95,15 @@ footer {
     box-shadow: 10px 10px 5px #888888;
     border-radius: 10px;
     background-color: #67c23a;
-    animation: startorder 4s infinite;
+    animation: startorder 8s infinite;
     position: absolute;
-    top: 0px;
+    top: 50px;
     left: 0px;
     right: 0px;
-    bottom: 0px;
+
     margin: auto;
   }
-  .switchlang {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    width: 25%;
-    height: 100px;
-    font-size: 50px;
-    margin: 20px;
-    border-radius: 40px;
-    font-weight: 600;
-  }
+
   .lang {
     position: absolute;
     bottom: 100px;
@@ -115,6 +115,18 @@ footer {
       padding: 10px 0px;
     }
   }
+}
+.switchlang {
+  position: absolute;
+  bottom: 20px;
+  right: 0px;
+  width: 25%;
+  height: 100px;
+  font-size: 50px;
+  margin: 0px 20px;
+  border-radius: 40px;
+  font-weight: 600;
+  z-index: 11;
 }
 @keyframes startorder {
   0% {
@@ -137,5 +149,16 @@ footer {
     background-color: #67c23a;
     transform: scale(1);
   }
+}
+
+.isRotation {
+  position: absolute;
+  top: 300px;
+  right: 0px;
+  left: 0px;
+  margin: auto;
+  width: 20%;
+  font-size: 30px;
+  background-color: aqua;
 }
 </style>
